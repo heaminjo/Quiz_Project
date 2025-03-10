@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+body {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
