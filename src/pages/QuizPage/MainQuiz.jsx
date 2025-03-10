@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import MainQuizComp from "./MainQuizStyle";
 import QuizStart from "../../components/Quiz/QuizStart";
+import QuizResult from "../../components/Quiz/QuizResult";
 
 export default function MainQuiz() {
   //퀴즈 데이터
@@ -17,8 +18,21 @@ export default function MainQuiz() {
     { id: 10, question: "언니는 영어로?", result: "sister" },
   ];
 
-  //퀴즈 스타트 상태값
+  //퀴즈 스타트 상태 값
   const [isStart, setIsStart] = useState(false);
+  //결과창 상태 값
+  const [resultModal, setResultModal] = useState(false);
+  const result = useRef([]);
+
+  //결과 출력 함수
+  const resultPrint = (resultData) => {
+    console.log(resultData);
+    //함수로 전달 받은 결과 저장
+    result.current.push(resultData);
+    console.log("ref에 저장" + result.current);
+    //결과 모달 상태값
+    setResultModal(true);
+  };
 
   return (
     <MainQuizComp>
@@ -26,7 +40,12 @@ export default function MainQuiz() {
         <h1>실전 퀴즈문제</h1>
         <div className="quiz_body">
           {isStart ? (
-            <QuizStart quiz={quiz} />
+            <QuizStart
+              quiz={quiz}
+              setIsStart={setIsStart}
+              setResultModal={setResultModal}
+              resultPrint={resultPrint}
+            />
           ) : (
             <div className="quiz_ready">
               <ul className="description">
@@ -37,6 +56,8 @@ export default function MainQuiz() {
               <button onClick={() => setIsStart(true)}>Start!</button>
             </div>
           )}
+          {/* 결과창 결과 데이터를 가지고 호출*/}
+          {resultModal && <QuizResult result={result} />}
         </div>
       </div>
     </MainQuizComp>
