@@ -24,11 +24,13 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
     //상위 컴포넌트에서 받아온 함수에 맞힌 퀴즈의 데이터를 넣어 호출하고
     //게임 상태를 종료
     if (round > 10) {
-      setRound(0);
       // console.log(
       //   "함수 전달 하기전 결과 데이터:" + resultQuiz.current[0].result
       // );
+
+      console.log("배열에 정답 저장 " + resultQuiz.current[0].quizNum);
       resultPrint(resultQuiz);
+      setRound(0);
       setIsStart(false);
     }
 
@@ -37,8 +39,6 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
 
     //해당 번호의 문제를 find로 가져온다.
     const sel = quiz.find((m) => m.id == randomNum);
-    // console.log(`뽑힌 문제 번호: ${sel.id}`);
-
     setSelQuiz(sel);
   }, [round]);
   //--------------------------------------------------------------------------
@@ -47,9 +47,12 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
   const resultCheck = () => {
     //만약 현재 문제와 입력한 정답이 일치하다면
     if (selQuiz.result == inputResult) {
-      console.log("정답!" + selQuiz.result); //완료
-      resultQuiz.current.push(selQuiz);
-      console.log("배열에 정답 저장 " + resultQuiz.current[0].result); //완료
+      //console.log("정답!" + selQuiz.result); 완료
+      // console.log(`문제 번호1: ${selQuiz.quizNum}`);
+      // console.log(`문제 번호2: ${selQuiz.id}`);
+
+      resultQuiz.current.push({ ...selQuiz, quizNum: round });
+      // console.log("배열에 정답 저장 " + resultQuiz.current[0].quizNum); //완료
     }
     //다음 라운드
     setInputResult("");

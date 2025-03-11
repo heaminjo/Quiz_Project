@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+.endQuiz {
+  display: flex;
+  flex-wrap: wrap; /* 항목들이 넘칠 경우 새로운 줄로 배치 */
+  justify-content: center; /* 항목들이 가로로 중앙 정렬 */
+  align-items: center; /* 항목들이 세로로 중앙 정렬 */
+}
+
+.quizResult {
+  margin: 5px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(33.333% - 10px); /* 한 줄에 3개씩 배치, margin 고려 */
+  box-sizing: border-box; /* padding을 포함한 너비 계산 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  background-color: aqua;
+}
+#score {
+  text-align: center;
+  font-size: 50px;
+}

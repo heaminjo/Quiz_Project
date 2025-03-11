@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import LoginComp from "./LoginStyle";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Login({ members }) {
+export default function Register({ joinMember }) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [emailValid, setEmailValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
-  const [notAllow, setNotAllow] = useState(true); // ✅ 로그인 버튼 활성화 상태
+  const [notAllow, setNotAllow] = useState(true);
+  const navigate = useNavigate();
 
-  //이메일 유효성
+  // 이메일 유효성 검사 포함함
   const handleEmail = (e) => {
     setEmail(e.target.value);
-    const emailRegex = /^[a-zA-Z0-9.%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     setEmailValid(emailRegex.test(e.target.value));
   };
-  // 비밀번호호 유효성
+  // 패스워드 유효성 검사 포함
   const handlePw = (e) => {
     setPw(e.target.value);
     const passwordRegex =
@@ -23,29 +23,31 @@ export default function Login({ members }) {
     setPwValid(passwordRegex.test(e.target.value));
   };
 
-  // ✅ 로그인 버튼 상태 업데이트 추가
+  // 회원 가입 버튼 클릭릭
+  const onClickRegisterButton = () => {
+    //이메일과 비밀번호 유효성이 맞다면
+    if (emailValid && pwValid) {
+      const newUser = { email: email, password: pw };
+      joinMember(newUser);
+
+      alert(`회원가입 성공!!\n이메일: ${email}`);
+      navigate("/login");
+    } else {
+      alert("이메일 또는 비밀번호를 올바르게 입력해주세요.");
+    }
+  };
+
   useEffect(() => {
-    setNotAllow(!(emailValid && pwValid)); // 이메일 & 비밀번호가 유효하면 버튼 활성화
+    setNotAllow(!(emailValid && pwValid));
   }, [emailValid, pwValid]);
 
-  //로그인 버튼 클릭릭
-  const onClickConfirmButton = () => {
-    //로그인 버튼 클릭 시 정보와 일치하는 회원을 찾아 user에 저장장
-    const user = members.find(
-      (member) => member.email === email && member.password === pw
-    );
-
-    if (user) {
-      alert(`로그인 성공!!\n이메일: ${email}`);
-    } else {
-      alert("등록되지 않은 회원이거나 잘못 입력하셨습니다.");
-    }
-    localStorage.setItem("loginUser", JSON.stringify(user));
-  };
+  // --------------------------------------------------------------
   return (
     <div className="page">
       <div className="titleWrap">
-        <h2>로그인</h2>
+        이메일과 비밀번호를
+        <br />
+        입력해주세요.
       </div>
       <div className="contentWrap">
         <div className="inputTitle">이메일 주소</div>
@@ -58,13 +60,14 @@ export default function Login({ members }) {
             onChange={handleEmail}
           />
         </div>
+
         <div className="errorMessageWrap">
           {!emailValid && email.length > 0 && (
             <div>올바른 이메일을 입력해주세요.</div>
           )}
         </div>
 
-        <div className="inputTitle" style={{ marginTop: "26px" }}>
+        <div style={{ marginTop: "26px" }} className="inputTitle">
           비밀번호
         </div>
         <div className="inputWrap">
@@ -76,6 +79,7 @@ export default function Login({ members }) {
             onChange={handlePw}
           />
         </div>
+
         <div className="errorMessageWrap">
           {!pwValid && pw.length > 0 && (
             <div>대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
@@ -85,17 +89,17 @@ export default function Login({ members }) {
 
       <div className="buttonWrap">
         <button
-          onClick={onClickConfirmButton}
+          onClick={onClickRegisterButton}
           disabled={notAllow}
           className="bottomButton"
         >
-          로그인
+          회원가입
         </button>
       </div>
-      <hr />
+      <hr nonshade />
       <div className="registerWrap">
         <div className="registerTitle">
-          계정이 없으신가요? <Link to="/register">가입하기</Link>
+          계정이 있으신가요?<Link to="/login">로그인 하러가기</Link>
         </div>
       </div>
     </div>

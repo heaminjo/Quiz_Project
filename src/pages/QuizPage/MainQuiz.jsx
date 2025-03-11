@@ -37,13 +37,18 @@ export default function MainQuiz() {
 
   return (
     <MainQuizComp>
-      <div className="quiz_inner">
+      <div
+        className="quiz_inner"
+        style={{ display: resultModal ? "none" : "block" }}
+      >
+        {/*결과창 호출시 div영역 숨김 */}
         <h1>실전 퀴즈문제</h1>
         <div className="quiz_body">
           {isStart ? (
             <QuizStart
               quiz={quiz}
               setIsStart={setIsStart}
+              setResultModal={setResultModal}
               resultPrint={resultPrint}
             />
           ) : (
@@ -56,10 +61,10 @@ export default function MainQuiz() {
               <button onClick={() => setIsStart(true)}>Start!</button>
             </div>
           )}
-          {/* 결과창 결과 데이터를 가지고 호출*/}
-          {resultModal && <QuizResult result={result} />}
         </div>
       </div>
+      {/* 결과창 결과 데이터를 가지고 호출*/}
+      {resultModal && <QuizResult result={result} />}
     </MainQuizComp>
   );
 }

@@ -13,7 +13,7 @@ export default function Header() {
         </div>
         <ul className="member_menu">
           <li onClick={() => navigate("/login")}>로그인</li>
-          <li onClick={() => navigate()}>회원가입</li>
+          <li onClick={() => navigate("/register")}>회원가입</li>
         </ul>
       </div>
       <Nav />
