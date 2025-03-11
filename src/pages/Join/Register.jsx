@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Register({ joinMember }) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const [nickname, setNickname] = useState(""); //  닉네임 상태 추가
   const [emailValid, setEmailValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
+  const [nicknameValid, setNicknameValid] = useState(false); //  닉네임 유효성 추가
   const [notAllow, setNotAllow] = useState(true);
   const navigate = useNavigate();
 
@@ -23,29 +25,52 @@ export default function Register({ joinMember }) {
     setPwValid(passwordRegex.test(e.target.value));
   };
 
-  // 회원 가입 버튼 클릭릭
-  const onClickRegisterButton = () => {
-    //이메일과 비밀번호 유효성이 맞다면
-    if (emailValid && pwValid) {
-      const newUser = { email: email, password: pw };
-      joinMember(newUser);
+  // 회원 가입 버튼 클릭
+  //   const onClickRegisterButton = () => {
+  //     //이메일과 비밀번호 유효성이 맞다면
+  //     if (emailValid && pwValid) {
+  //       const newUser = { email: email, password: pw };
+  //       joinMember(newUser);
 
-      alert(`회원가입 성공!!\n이메일: ${email}`);
+  //       alert(`회원가입 성공!!\n이메일: ${email}`);
+  //       navigate("/login");
+  //     } else {
+  //       alert("이메일 또는 비밀번호를 올바르게 입력해주세요.");
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     setNotAllow(!(emailValid && pwValid));
+  //   }, [emailValid, pwValid]);
+
+  //  버튼 활성화 상태 업데이트
+
+  //  닉네임 입력 핸들러
+  const handleNickname = (e) => {
+    setNickname(e.target.value);
+    setNicknameValid(e.target.value.length >= 2); // 닉네임은 최소 2자 이상
+  };
+
+  //  회원가입 버튼 클릭
+  const onClickRegisterButton = () => {
+    if (emailValid && pwValid && nicknameValid) {
+      const newUser = { email, password: pw, nickname };
+      joinMember(newUser);
+      alert(`회원가입 성공!!\n이메일: ${email}\n닉네임: ${nickname}`);
       navigate("/login");
     } else {
-      alert("이메일 또는 비밀번호를 올바르게 입력해주세요.");
+      alert("입력 정보를 올바르게 입력해주세요.");
     }
   };
 
   useEffect(() => {
-    setNotAllow(!(emailValid && pwValid));
-  }, [emailValid, pwValid]);
-
+    setNotAllow(!(emailValid && pwValid && nicknameValid));
+  }, [emailValid, pwValid, nicknameValid]);
   // --------------------------------------------------------------
   return (
     <div className="page">
       <div className="titleWrap">
-        이메일과 비밀번호를
+        이메일, 비밀번호, 닉네임을
         <br />
         입력해주세요.
       </div>
@@ -60,10 +85,26 @@ export default function Register({ joinMember }) {
             onChange={handleEmail}
           />
         </div>
-
         <div className="errorMessageWrap">
           {!emailValid && email.length > 0 && (
             <div>올바른 이메일을 입력해주세요.</div>
+          )}
+        </div>
+
+        {/*  닉네임 입력 칸 추가 */}
+        <div className="inputTitle">닉네임</div>
+        <div className="inputWrap" style={{ display: "block" }}>
+          <input
+            type="text"
+            className="input"
+            placeholder="닉네임을 입력하세요"
+            value={nickname}
+            onChange={handleNickname}
+          />
+        </div>
+        <div className="errorMessageWrap">
+          {!nicknameValid && nickname.length > 0 && (
+            <div>닉네임은 최소 2자 이상이어야 합니다.</div>
           )}
         </div>
 
@@ -74,15 +115,14 @@ export default function Register({ joinMember }) {
           <input
             type="password"
             className="input"
-            placeholder="대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요"
+            placeholder="대문자, 숫자, 특수문자 포함 8자 이상"
             value={pw}
             onChange={handlePw}
           />
         </div>
-
         <div className="errorMessageWrap">
           {!pwValid && pw.length > 0 && (
-            <div>대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
+            <div>대문자, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
           )}
         </div>
       </div>
@@ -99,7 +139,7 @@ export default function Register({ joinMember }) {
       <hr nonshade />
       <div className="registerWrap">
         <div className="registerTitle">
-          계정이 있으신가요?<Link to="/login">로그인 하러가기</Link>
+          계정이 있으신가요? <Link to="/login">로그인 하러가기</Link>
         </div>
       </div>
     </div>

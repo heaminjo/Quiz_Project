@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import LoginComp from "./LoginStyle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Login({ members }) {
+export default function Login({ members, setIsLogin }) {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [emailValid, setEmailValid] = useState(false);
@@ -28,15 +30,17 @@ export default function Login({ members }) {
     setNotAllow(!(emailValid && pwValid)); // 이메일 & 비밀번호가 유효하면 버튼 활성화
   }, [emailValid, pwValid]);
 
-  //로그인 버튼 클릭릭
+  //로그인 버튼 클릭
   const onClickConfirmButton = () => {
-    //로그인 버튼 클릭 시 정보와 일치하는 회원을 찾아 user에 저장장
+    //로그인 버튼 클릭 시 정보와 일치하는 회원을 찾아 user에 저장
     const user = members.find(
       (member) => member.email === email && member.password === pw
     );
 
     if (user) {
       alert(`로그인 성공!!\n이메일: ${email}`);
+      setIsLogin(true);
+      navigate("/");
     } else {
       alert("등록되지 않은 회원이거나 잘못 입력하셨습니다.");
     }
