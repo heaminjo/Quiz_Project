@@ -22,14 +22,15 @@ export default function MainQuiz() {
   const [isStart, setIsStart] = useState(false);
   //결과창 상태 값
   const [resultModal, setResultModal] = useState(false);
+  //결과 데이터
   const result = useRef([]);
 
-  //결과 출력 함수
+  //정답 데이터를 전달받아 저장
   const resultPrint = (resultData) => {
-    console.log(resultData);
     //함수로 전달 받은 결과 저장
-    result.current.push(resultData);
-    console.log("ref에 저장" + result.current);
+    result.current = resultData.current;
+    // console.log(result.current[2].question);  체크 완료
+
     //결과 모달 상태값
     setResultModal(true);
   };
@@ -43,7 +44,6 @@ export default function MainQuiz() {
             <QuizStart
               quiz={quiz}
               setIsStart={setIsStart}
-              setResultModal={setResultModal}
               resultPrint={resultPrint}
             />
           ) : (
