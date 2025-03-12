@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Register.css";
+import { QuizContext } from "../../App";
 
-export default function Register({ joinMember }) {
+export default function Register() {
+  //컨택스트
+  const { joinMember } = useContext(QuizContext);
+
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [nickname, setNickname] = useState(""); //  닉네임 상태 추가
@@ -68,41 +73,43 @@ export default function Register({ joinMember }) {
   }, [emailValid, pwValid, nicknameValid]);
   // --------------------------------------------------------------
   return (
-    <div className="page">
-      <div className="titleWrap">
-        이메일, 비밀번호, 닉네임을
+    <div className="pages">
+      <div className="titleWraps">
+        회원가입
         <br />
-        입력해주세요.
+        <br />
       </div>
-      <div className="contentWrap">
-        <div className="inputTitle">이메일 주소</div>
+      <div className="contentWraps">
+        <div className="inputTitles">이메일 주소</div>
         <div className="inputWrap">
           <input
             type="text"
-            className="input"
+            className="inputs"
             placeholder="이메일을 입력하세요"
             value={email}
             onChange={handleEmail}
           />
         </div>
-        <div className="errorMessageWrap">
+        <div className="errorMessageWraps">
           {!emailValid && email.length > 0 && (
             <div>올바른 이메일을 입력해주세요.</div>
           )}
         </div>
 
         {/*  닉네임 입력 칸 추가 */}
-        <div className="inputTitle">닉네임</div>
+        <div className="inputTitles" id="nickNameTag">
+          닉네임
+        </div>
         <div className="inputWrap" style={{ display: "block" }}>
           <input
             type="text"
-            className="input"
+            className="inputs"
             placeholder="닉네임을 입력하세요"
             value={nickname}
             onChange={handleNickname}
           />
         </div>
-        <div className="errorMessageWrap">
+        <div className="errorMessageWraps">
           {!nicknameValid && nickname.length > 0 && (
             <div>닉네임은 최소 2자 이상이어야 합니다.</div>
           )}
@@ -114,13 +121,13 @@ export default function Register({ joinMember }) {
         <div className="inputWrap">
           <input
             type="password"
-            className="input"
+            className="inputs"
             placeholder="대문자, 숫자, 특수문자 포함 8자 이상"
             value={pw}
             onChange={handlePw}
           />
         </div>
-        <div className="errorMessageWrap">
+        <div className="errorMessageWraps">
           {!pwValid && pw.length > 0 && (
             <div>대문자, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
           )}
@@ -128,18 +135,21 @@ export default function Register({ joinMember }) {
       </div>
 
       <div className="buttonWrap">
-        <button
+        <div
           onClick={onClickRegisterButton}
           disabled={notAllow}
-          className="bottomButton"
+          className="bottomButtons"
         >
           회원가입
-        </button>
+        </div>
       </div>
       <hr nonshade />
-      <div className="registerWrap">
-        <div className="registerTitle">
-          계정이 있으신가요? <Link to="/login">로그인 하러가기</Link>
+      <div className="registerWraps">
+        <div className="registerTitles">
+          계정이 있으신가요?{" "}
+          <Link to="/login">
+            <span>로그인 하러가기</span>
+          </Link>
         </div>
       </div>
     </div>

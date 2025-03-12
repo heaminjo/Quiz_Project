@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ScoreItem from "../../components/Mypage/ScoreItem";
+import MyRankComp from "./MyRankStyle";
+import { QuizContext } from "../../App";
 
-export default function MyRank({ testData }) {
-  const [myTestData, setMyTestData] = useState([]);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("loginUser"));
-
-    console.log("유저 찾아옴" + user.id);
-    console.log("테스트 기록들" + testData);
-    //유저 아이디와 테스트 기록 아이디와 일치하는것을 찾아 배열로 저장장
-    setMyTestData(testData.filter((data) => data.memberId == user.id));
-    console.log("로그인된 기록" + myTestData);
-  }, []);
+export default function MyRank() {
+  //컨텍스트
+  const { loginUser, testData, userTestData } = useContext(QuizContext);
 
   return (
-    <>
+    <MyRankComp>
       <div className="rank_inner">
-        <h2>Test List</h2>
-        <ul>
-          {myTestData.map((item) => (
-            <ScoreItem scoreItem={item} />
-          ))}
-        </ul>
+        <div className="score_list">
+          <h2>Test List</h2>
+          <table>
+            <tr>
+              <th>순번</th>
+              <th>닉네임</th>
+              <th>문제 유형</th>
+              <th>점수</th>
+              <th>날짜</th>
+            </tr>
+            {userTestData.map((item) => (
+              <ScoreItem scoreItem={item} />
+            ))}
+          </table>
+        </div>
+        <div className="user_score">
+          <h2>{loginUser.nickname}</h2>
+        </div>
       </div>
-    </>
+    </MyRankComp>
   );
 }

@@ -8,11 +8,13 @@ import QuizCategory from "./components/Quiz/QuizCategory";
 // import Myinfo from "./pages/Mypage/MyInfo";
 import MyRank from "./pages/Mypage/MyRank";
 import Register from "./pages/Join/Register";
-import { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import RankPage from "./pages/RankPage/RankPage";
 import MyPage from "./pages/Mypage/MyPage";
 import Myinfo from "./pages/Mypage/MyInfo";
 import MyPageEdit from "./pages/Mypage/MypageEdit";
+
+export const QuizContext = React.createContext();
 
 function App() {
   //로그인 상태
@@ -27,9 +29,19 @@ function App() {
     },
   ]);
 
-  const [testData, setTestData] = useState([]); //문제 풀이 데이터
+  const [userTestData, setUserTestData] = useState([]);
 
+  //로그인 된 유저
+  const [loginUser, setLoginUser] = useState([]); //로그인 유저 문제 풀이이 데이터
+  const [testData, setTestData] = useState([]); //문제 풀이 데이터
   const idRef = useRef(1);
+
+  // //로그인 유저 정보 확인인
+  useEffect(() => {
+    console.log("로그인 유저 정보 저장됌", loginUser);
+    setUserTestData(testData.filter((data) => data.memberId == loginUser.id));
+    console.log("유저 문제 풀이" + userTestData);
+  }, [loginUser, testData]);
 
   // 회원가입 시 members 배열에 사용자 추가하는 함수
   const joinMember = (user) => {
@@ -52,32 +64,36 @@ function App() {
   };
 
   return (
-    <>
+    <QuizContext.Provider
+      value={{
+        isLogin,
+        setIsLogin,
+        loginUser,
+        setLoginUser,
+        members,
+        addTestData,
+        joinMember,
+        testData,
+        userTestData,
+        setUserTestData,
+      }}
+    >
       <Routes>
-        <Route element={<Layout isLogin={isLogin} setIsLogin={setIsLogin} />}>
-          <Route path="/" element={<Main isLogin={isLogin} />} />
-          <Route
-            path="/login"
-            element={<Login members={members} setIsLogin={setIsLogin} />}
-          />
-          <Route
-            path="/register"
-            element={<Register joinMember={joinMember} />}
-          />
-          <Route
-            path="/mainQuiz"
-            element={<MainQuiz addTestData={addTestData} />}
-          />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/mainQuiz" element={<MainQuiz />} />
           <Route path="/quizCategory" element={<QuizCategory />} />
-          <Route element={<MyPage members={members} setIsLogin={setIsLogin} />}>
+          <Route element={<MyPage />}>
             <Route path="/myinfo" element={<Myinfo />} />
-            <Route path="/myrank" element={<MyRank testData={testData} />} />
+            <Route path="/myrank" element={<MyRank />} />
             <Route path="/myedit" element={<MyPageEdit />} />
           </Route>
           <Route path="/rank" element={<RankPage />} />
         </Route>
       </Routes>
-    </>
+    </QuizContext.Provider>
   );
 }
 

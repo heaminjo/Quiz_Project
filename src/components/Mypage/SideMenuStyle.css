@@ -1,14 +1,17 @@
 /* 사이드바 스타일 */
 .sidebar {
-  width: 200px; /* 사이드바 너비 */
+  width: 250px; /* 사이드바 너비 */
   background-color: #f4f4f4; /* 배경색 */
   padding: 20px;
-  height: 100vh; /* 화면 전체 높이 */
+  height: 400px; /* 화면 전체 높이 */
 }
 
 /* 사이드바 목록 스타일 */
 .sidebar ul {
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   padding: 0;
 }
 

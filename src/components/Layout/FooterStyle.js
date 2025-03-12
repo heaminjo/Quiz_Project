@@ -24,5 +24,8 @@ const FooterComp = styled.footer`
     height: 1px;
     border: 0;
   }
+  h1 {
+    margin: 0;
+  }
 `;
 export default FooterComp;

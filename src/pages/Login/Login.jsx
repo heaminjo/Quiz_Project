@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LoginComp from "./LoginStyle";
 import { Link, useNavigate } from "react-router-dom";
+import { QuizContext } from "../../App";
 
-export default function Login({ members, setIsLogin }) {
+export default function Login() {
+  //컨텍스트
+  const { members, setLoginUser, setIsLogin } = useContext(QuizContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -40,6 +43,7 @@ export default function Login({ members, setIsLogin }) {
     if (user) {
       alert(`로그인 성공!!\n이메일: ${email}`);
       setIsLogin(true);
+      setLoginUser(user);
       navigate("/");
     } else {
       alert("등록되지 않은 회원이거나 잘못 입력하셨습니다.");

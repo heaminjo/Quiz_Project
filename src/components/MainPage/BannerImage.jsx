@@ -1,14 +1,14 @@
 import "./BannerImage.css";
-import img1 from "../../image/book1.jpg";
-import img2 from "../../image/book2.jpg";
-import img3 from "../../image/book3.jpg";
-import img4 from "../../image/book4.jpg";
+import img1 from "../../image/book.jpg";
+import img2 from "../../image/english.jpg";
+import img3 from "../../image/math.png";
+import img4 from "../../image/history.png";
 import img5 from "../../image/book5.jpg";
 import img6 from "../../image/book6.jpg";
 import img7 from "../../image/book7.jpg";
 import img8 from "../../image/book8.jpg";
 import img9 from "../../image/book9.jpg";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -19,18 +19,24 @@ import "swiper/css/navigation";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { QuizContext } from "../../App";
 
 const TextSlide = [
   {
     title: "상식퀴즈",
     text: "상식퀴즈 입니다!",
     image: img1,
-    page: "https://www.naver.com",
+    page: "/mainQuiz",
   },
-  { title: "영어퀴즈", text: "영어퀴즈 입니다!", image: img2 },
-  { title: "3", text: "3번 문제!", image: img3 },
-  { title: "4", text: "4번 문제!", image: img4 },
+  {
+    title: "영어퀴즈",
+    text: "영어퀴즈 입니다!",
+    image: img2,
+    page: "/quizCategory",
+  },
+  { title: "수학퀴즈", text: "수학퀴즈 입니다!", image: img3 },
+  { title: "역사퀴즈", text: "역사퀴즈 입니다!", image: img4 },
   { title: "5", text: "5번 문제!", image: img5 },
   { title: "6", text: "6번 문제!", image: img6 },
   { title: "7", text: "7번 문제!", image: img7 },
@@ -38,13 +44,25 @@ const TextSlide = [
   { title: "9", text: "9번 문제!", image: img9 },
 ];
 
-const BannerImage = ({ isLogin }) => {
+const BannerImage = () => {
+  const { isLogin } = useContext(QuizContext);
+
   const [currentIndex, setCurrentIndex] = useState(0); //Swiper 상태변수
   const [randomData, setRandomData] = useState(Math.random());
+  const navigate = useNavigate();
   //=> TextArea를 Swiper가 동작할때마다 리렌더링 할 상태변수
 
+  const loginCheck = (move) => {
+    if (isLogin) {
+      navigate(move);
+    } else {
+      alert("로그인이 필요한 서비스입니다");
+      navigate("/login");
+    }
+  };
+
   return (
-    <div>
+    <div id="BannerContainer">
       <div id="ImageArea">
         <Swiper
           id="introSwiper"
@@ -83,11 +101,11 @@ const BannerImage = ({ isLogin }) => {
         <p className="TextAreaClass" key={randomData}>
           {TextSlide[currentIndex].text}
         </p>
-        <NavLink to={TextSlide[currentIndex].page}>
+        <div onClick={() => loginCheck(TextSlide[currentIndex].page)}>
           <div id="NavigatePage" className="TextAreaClass" key={randomData}>
             <span>퀴즈 하러 가기 &gt;</span>
           </div>
-        </NavLink>
+        </div>
       </div>
     </div>
   );

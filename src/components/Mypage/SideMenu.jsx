@@ -1,7 +1,11 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./SideMenuStyle.css";
+import { useContext } from "react";
+import { QuizContext } from "../../App";
 
-export default function SideMenu({ setIsLogin }) {
+export default function SideMenu() {
+  //컨텍스트트
+  const { setIsLogin } = useContext(QuizContext);
   const navigate = useNavigate();
   // 로그아웃 처리 함수
   const handleLogout = () => {

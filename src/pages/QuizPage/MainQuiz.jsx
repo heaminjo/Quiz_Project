@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import MainQuizComp from "./MainQuizStyle";
 import QuizStart from "../../components/Quiz/QuizStart";
 import QuizResult from "../../components/Quiz/QuizResult";
+import { QuizContext } from "../../App";
 
-export default function MainQuiz({ addTestData }) {
+export default function MainQuiz() {
+  const { addTestData } = useContext(QuizContext);
   //퀴즈 데이터
   const quiz = [
     { id: 1, question: "강아지는 영어로?", result: "dog" },
@@ -64,7 +66,7 @@ export default function MainQuiz({ addTestData }) {
         </div>
       </div>
       {/* 결과창 결과 데이터를 가지고 호출*/}
-      {resultModal && <QuizResult result={result} addTestData={addTestData} />}
+      {resultModal && <QuizResult result={result} />}
     </MainQuizComp>
   );
 }

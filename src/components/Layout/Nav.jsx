@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import NavComp from "./NavStyle";
+import { QuizContext } from "../../App";
+import { useContext } from "react";
 
-export default function Nav({ isLogin }) {
+export default function Nav() {
+  //컨텍스트
+  const { isLogin } = useContext(QuizContext);
   const navigate = useNavigate();
 
   //로그인 체크
