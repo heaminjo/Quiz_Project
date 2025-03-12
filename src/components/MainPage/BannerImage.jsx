@@ -38,7 +38,7 @@ const TextSlide = [
   { title: "9", text: "9번 문제!", image: img9 },
 ];
 
-const BannerImage = ({}) => {
+const BannerImage = ({ isLogin }) => {
   const [currentIndex, setCurrentIndex] = useState(0); //Swiper 상태변수
   const [randomData, setRandomData] = useState(Math.random());
   //=> TextArea를 Swiper가 동작할때마다 리렌더링 할 상태변수

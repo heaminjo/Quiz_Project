@@ -13,9 +13,9 @@ export default function Header({ isLogin, setIsLogin }) {
       console.log("로그인 상태입니다.");
       setLoginUser(JSON.parse(localStorage.getItem("loginUser")));
     }
-
-    console.log(loginUser);
-  }, []);
+    console.log(loginUser.nickname);
+  }, [isLogin]);
+  // 오류 수정 이름 반영 안됌 => 의존성배열에 isLogin 을 넣어 로그인될때마다 업데이트트
 
   //로그아웃 클릭
   const clickLogout = () => {
@@ -45,7 +45,7 @@ export default function Header({ isLogin, setIsLogin }) {
           )}
         </ul>
       </div>
-      <Nav />
+      <Nav isLogin={isLogin} />
     </HeaderComp>
   );
 }

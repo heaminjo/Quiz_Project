@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "./QuizResult.css";
+
 //퀴즈 종료 결과 창 컴포넌트
 export default function QuizResult({ result, addTestData }) {
   const resultRef = useRef(1);
@@ -10,6 +11,8 @@ export default function QuizResult({ result, addTestData }) {
 
   //user에 결과 데이터 배열 저장
   useEffect(() => {
+    console.log("다 틀림" + result.current);
+
     //로컬스토리지에서 현재 로그인 된 회원 정보를 가져온다.
     const user = JSON.parse(localStorage.getItem("loginUser"));
 
@@ -35,13 +38,20 @@ export default function QuizResult({ result, addTestData }) {
     <>
       <h1>종료 결과</h1>
       <div className="endQuiz">
-        {result.current.map((re) => (
-          <div className="quizResult">
-            <p>
-              번호: {re.quizNum} | 문제 내용: {re.question} | 정답 : {re.result}
-            </p>
-          </div>
-        ))}
+        {result.current != 0 ? (
+          <>
+            {result.current.map((re) => (
+              <div className="quizResult">
+                <p>
+                  번호: {re.quizNum} | 문제 내용: {re.question} | 정답 :{" "}
+                  {re.result}
+                </p>
+              </div>
+            ))}
+          </>
+        ) : (
+          <p id="zeroPoint">빵점입니다.</p>
+        )}
       </div>
       <p id="score">총점: {result.current.length}/10</p>
     </>

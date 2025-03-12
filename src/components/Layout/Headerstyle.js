@@ -10,8 +10,10 @@ const HeaderComp = styled.header`
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+
     .header_title {
       position: relative;
+      
       h1 {
         width: 150px;
         position: absolute;

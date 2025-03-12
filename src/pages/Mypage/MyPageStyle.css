@@ -1,0 +1,15 @@
+/* MyPage.css */
+
+/* 전체 마이페이지 컨테이너 */
+.mypage-container {
+  display: flex; /* 가로 정렬 */
+  font-family: Arial, sans-serif;
+  height: 100vh; /* 화면 전체 높이 */
+  margin: 0;
+}
+
+/* 메인 컨텐츠 스타일 */
+.content {
+  flex: 1; /* 가변적인 크기 조정 */
+  padding: 20px;
+}

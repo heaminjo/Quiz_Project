@@ -5,11 +5,14 @@ import "./App.css";
 import Login from "./pages/Login/Login";
 import MainQuiz from "./pages/QuizPage/MainQuiz";
 import QuizCategory from "./components/Quiz/QuizCategory";
-import Myinfo from "./pages/Mypage/MyInfo";
+// import Myinfo from "./pages/Mypage/MyInfo";
 import MyRank from "./pages/Mypage/MyRank";
 import Register from "./pages/Join/Register";
 import { useRef, useState } from "react";
 import RankPage from "./pages/RankPage/RankPage";
+import MyPage from "./pages/Mypage/MyPage";
+import Myinfo from "./pages/Mypage/MyInfo";
+import MyPageEdit from "./pages/Mypage/MypageEdit";
 
 function App() {
   //로그인 상태
@@ -52,7 +55,7 @@ function App() {
     <>
       <Routes>
         <Route element={<Layout isLogin={isLogin} setIsLogin={setIsLogin} />}>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main isLogin={isLogin} />} />
           <Route
             path="/login"
             element={<Login members={members} setIsLogin={setIsLogin} />}
@@ -66,8 +69,11 @@ function App() {
             element={<MainQuiz addTestData={addTestData} />}
           />
           <Route path="/quizCategory" element={<QuizCategory />} />
-          <Route path="/myinfo" element={<Myinfo />} />
-          <Route path="/myrank" element={<MyRank testData={testData} />} />
+          <Route element={<MyPage members={members} setIsLogin={setIsLogin} />}>
+            <Route path="/myinfo" element={<Myinfo />} />
+            <Route path="/myrank" element={<MyRank testData={testData} />} />
+            <Route path="/myedit" element={<MyPageEdit />} />
+          </Route>
           <Route path="/rank" element={<RankPage />} />
         </Route>
       </Routes>
