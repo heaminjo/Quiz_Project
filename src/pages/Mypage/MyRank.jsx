@@ -5,7 +5,18 @@ import { QuizContext } from "../../App";
 
 export default function MyRank() {
   //컨텍스트
-  const { loginUser, testData, userTestData } = useContext(QuizContext);
+  const { loginUser, userTestData } = useContext(QuizContext);
+  const [maxScore, setMaxScore] = useState(0);
+
+  useEffect(() => {
+    //map을 통해점수만 배열로 가져오기
+    const score = userTestData.map((test) => test.resultNum);
+    console.log(score);
+
+    //점수들중 가장 높은 점수
+    setMaxScore(Math.max(...score));
+    console.log("가장높은점수" + maxScore);
+  }, []);
 
   return (
     <MyRankComp>
@@ -26,7 +37,10 @@ export default function MyRank() {
           </table>
         </div>
         <div className="user_score">
-          <h2>{loginUser.nickname}</h2>
+          <div className="userData">
+            <h2>{loginUser.nickname}님의 최고 점수</h2>
+            <p>{maxScore}</p>
+          </div>
         </div>
       </div>
     </MyRankComp>

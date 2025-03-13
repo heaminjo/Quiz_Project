@@ -1,24 +1,12 @@
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import MainQuizComp from "./MainQuizStyle";
 import QuizStart from "../../components/Quiz/QuizStart";
 import QuizResult from "../../components/Quiz/QuizResult";
-import { QuizContext } from "../../App";
+import { Mainquiz } from "../../components/Quiz/QuizList";
 
-export default function MainQuiz() {
-  const { addTestData } = useContext(QuizContext);
+export default function MainQuiz({ addTestData }) {
   //퀴즈 데이터
-  const quiz = [
-    { id: 1, question: "강아지는 영어로?", result: "dog" },
-    { id: 2, question: "고양이는 영어로?", result: "cat" },
-    { id: 3, question: "바나나는 영어로?", result: "banana" },
-    { id: 4, question: "사과는 영어로?", result: "apple" },
-    { id: 5, question: "새는 영어로?", result: "bird" },
-    { id: 6, question: "엄마는 영어로?", result: "mather" },
-    { id: 7, question: "아빠는 영어로?", result: "father" },
-    { id: 8, question: "친구는 영어로?", result: "friend" },
-    { id: 9, question: "키위는 영어로?", result: "kiwi" },
-    { id: 10, question: "언니는 영어로?", result: "sister" },
-  ];
+  const [Mquiz, setQuiz] = useState(Mainquiz);
 
   //퀴즈 스타트 상태 값
   const [isStart, setIsStart] = useState(false);
@@ -35,6 +23,11 @@ export default function MainQuiz() {
 
     //결과 모달 상태값
     setResultModal(true);
+
+    const resultPrint = (resultData) => {
+      result.current = resultData.current;
+      setResultModal(true);
+    };
   };
 
   return (
@@ -48,7 +41,7 @@ export default function MainQuiz() {
         <div className="quiz_body">
           {isStart ? (
             <QuizStart
-              quiz={quiz}
+              quiz={Mquiz}
               setIsStart={setIsStart}
               setResultModal={setResultModal}
               resultPrint={resultPrint}
@@ -56,7 +49,7 @@ export default function MainQuiz() {
           ) : (
             <div className="quiz_ready">
               <ul className="description">
-                <li>문제 개수: 10문항 </li>
+                <li>문제 개수: 20문항 </li>
                 <li>제한 시간: 3분</li>
                 <li>답을 채우지 않고 넘어갈 시 오답</li>
               </ul>
@@ -66,7 +59,13 @@ export default function MainQuiz() {
         </div>
       </div>
       {/* 결과창 결과 데이터를 가지고 호출*/}
-      {resultModal && <QuizResult result={result} />}
+      {resultModal && (
+        <QuizResult
+          result={result}
+          addTestData={addTestData}
+          setResultModal={setResultModal}
+        />
+      )}
     </MainQuizComp>
   );
 }
