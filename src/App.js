@@ -6,13 +6,21 @@ import Login from "./pages/Login/Login";
 import MainQuiz from "./pages/QuizPage/MainQuiz";
 import QuizCategory from "./components/Quiz/QuizCategory";
 // import Myinfo from "./pages/Mypage/MyInfo";
-import MyRank from "./pages/Mypage/MyRank";
+import MyRank from "./components/Mypage/MyRank";
 import Register from "./pages/Join/Register";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import RankPage from "./pages/RankPage/RankPage";
 import MyPage from "./pages/Mypage/MyPage";
-import Myinfo from "./pages/Mypage/MyInfo";
-import MyPageEdit from "./pages/Mypage/MypageEdit";
+import Myinfo from "./components/Mypage/MyInfo";
+import MyPageEdit from "./components/Mypage/MypageEdit";
+import ExEQuiz from "./components/Quiz/ExQuizList/ExEQuiz";
+import ExSQuiz from "./components/Quiz/ExQuizList/ExSQuiz";
+import ExHQuiz from "./components/Quiz/ExQuizList/ExHQuiz";
+import ExENQuiz from "./components/Quiz/ExQuizList/ExENQuiz";
+import ExLQuiz from "./components/Quiz/ExQuizList/ExLQuiz";
+import ExSPQuiz from "./components/Quiz/ExQuizList/ExSPQuiz";
+import ExMQuiz from "./components/Quiz/ExQuizList/ExMQuiz";
+import ExWQuiz from "./components/Quiz/ExQuizList/ExWQuiz";
 
 export const QuizContext = React.createContext();
 
@@ -28,15 +36,15 @@ function App() {
       nickname: "테스트용계정",
     },
   ]);
-
-  const [userTestData, setUserTestData] = useState([]);
-
   //로그인 된 유저
-  const [loginUser, setLoginUser] = useState([]); //로그인 유저 문제 풀이이 데이터
-  const [testData, setTestData] = useState([]); //문제 풀이 데이터
+  const [loginUser, setLoginUser] = useState([]); //로그인 유저
+
+  const [userTestData, setUserTestData] = useState([]); // 유저의 문제풀이 데이터
+  const [testData, setTestData] = useState([]); //전체 문제 풀이 데이터
+  const [ranking, setRanking] = useState([]); // 전체 순위 리스트
   const idRef = useRef(1);
 
-  // //로그인 유저 정보 확인인
+  // //로그인 유저 정보 확인
   useEffect(() => {
     console.log("로그인 유저 정보 저장됌", loginUser);
     setUserTestData(testData.filter((data) => data.memberId == loginUser.id));
@@ -63,6 +71,12 @@ function App() {
     console.log(testData);
   };
 
+  //새로운 전체 테스트 기록에 데이터가 추가 될 경우 랭킹 변동(내림차순)
+  useEffect(() => {
+    console.log(testData);
+    setRanking([...testData].sort((a, b) => b.resultNum - a.resultNum));
+  }, [testData]);
+
   return (
     <QuizContext.Provider
       value={{
@@ -76,6 +90,8 @@ function App() {
         testData,
         userTestData,
         setUserTestData,
+        ranking,
+        setRanking,
       }}
     >
       <Routes>
@@ -85,6 +101,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/mainQuiz" element={<MainQuiz />} />
           <Route path="/quizCategory" element={<QuizCategory />} />
+          <Route path="/ExEquiz" element={<ExEQuiz />} />
+          <Route path="/ExSquiz" element={<ExSQuiz />} />
+          <Route path="/ExHquiz" element={<ExHQuiz />} />
+          <Route path="/ExSPquiz" element={<ExSPQuiz />} />
+          <Route path="/ExENquiz" element={<ExENQuiz />} />
+          <Route path="/ExLquiz" element={<ExLQuiz />} />
+          <Route path="/ExMquiz" element={<ExMQuiz />} />
+          <Route path="/ExWquiz" element={<ExWQuiz />} />
           <Route element={<MyPage />}>
             <Route path="/myinfo" element={<Myinfo />} />
             <Route path="/myrank" element={<MyRank />} />

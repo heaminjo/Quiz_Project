@@ -3,9 +3,10 @@
   max-width: 350px;
   background: white;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-bottom: 150px;
+  margin: 0 auto;
 }
 
 .leaderboard-title {
@@ -13,13 +14,17 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 15px;
+  color: black;
+  text-shadow: 0px 0px 0px;
 }
 
 .leaderboard-list {
   list-style: none;
   padding: 0;
 }
-
+.leaderboard-list > p {
+  text-align: center;
+}
 .leaderboard-item {
   display: flex;
   align-items: center;

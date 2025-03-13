@@ -30,24 +30,26 @@ export default function QuizResult({ result }) {
 
   return (
     <>
-      <h1>종료 결과</h1>
-      <div className="endQuiz">
-        {result.current != 0 ? (
-          <>
-            {result.current.map((re) => (
-              <div className="quizResult">
-                <p>
-                  번호: {re.quizNum} | 문제 내용: {re.question} | 정답 :{" "}
-                  {re.result}
-                </p>
-              </div>
-            ))}
-          </>
-        ) : (
-          <p id="zeroPoint">빵점입니다.</p>
-        )}
+      <div className="result_container">
+        <h1>종료 결과</h1>
+        <div className="endQuiz">
+          {result.current != 0 ? (
+            <>
+              {result.current.map((re) => (
+                <div className="quizResult">
+                  <p>
+                    번호: {re.quizNum} | 문제 내용: {re.question} | 정답 :{" "}
+                    {re.result}
+                  </p>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p id="zeroPoint">빵점입니다.</p>
+          )}
+        </div>
+        <p id="score">총점: {result.current.length}/10</p>
       </div>
-      <p id="score">총점: {result.current.length}/10</p>
     </>
   );
 }

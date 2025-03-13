@@ -39,7 +39,7 @@ const RankPage = () => {
         )}
       </div>
 
-      <Ranking isLoading={isLoading} leaderboard={ranking} />
+      <Ranking isLoading={isLoading} ranking={ranking} />
     </div>
   );
 };

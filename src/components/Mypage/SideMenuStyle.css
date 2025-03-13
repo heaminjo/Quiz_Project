@@ -1,5 +1,6 @@
 /* 사이드바 스타일 */
 .sidebar {
+  margin-top: 2px;
   width: 250px; /* 사이드바 너비 */
   background-color: #f4f4f4; /* 배경색 */
   padding: 20px;

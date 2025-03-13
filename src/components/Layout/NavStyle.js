@@ -2,24 +2,26 @@ import styled from "styled-components";
 
 const NavComp = styled.nav`
   width: 100%;
-  height: 50px;
-  background-color: #ddd;
+  height: 70px;
+  border-bottom: 2px solid #000;
   .nav_inner {
     width: 1200px;
     margin: 0 auto;
     .nav_menu {
       margin: 0;
-      line-height: 50px;
+      line-height: 70px;
       display: flex;
       justify-content: space-between;
       li {
         width: 100%;
         text-align: center;
+        font-weight: bold;
         cursor: pointer;
       }
       li:hover {
-        background-color: #bbb;
         font-size: 1.2em;
+        color: #fff;
+        background-color: #ff6666;
       }
     }
   }

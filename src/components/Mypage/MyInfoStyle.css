@@ -1,0 +1,41 @@
+.info_container {
+  width: 1000px;
+  margin-top: 30px;
+}
+.info_content {
+  width: 450px;
+  height: 450px;
+  border: 1px solid #ccc;
+  margin: 0 auto;
+  background-color: #eee;
+  box-shadow: 3px 3px 3px #aaa;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}
+.user_data {
+  background-color: #fff;
+  height: 340px;
+}
+.userImage {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.userImage > img {
+  width: 130px;
+  height: 140px;
+}
+.userName {
+  margin-top: 30px;
+}
+.user p {
+  font-size: 20px;
+  font-weight: bold;
+}
+.modify {
+  margin-top: 10px;
+  font-weight: bold;
+}

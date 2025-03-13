@@ -1,5 +1,9 @@
+.result_container {
+  padding-top: 40px;
+}
 h1 {
   text-align: center;
+  margin: 0;
 }
 .endQuiz {
   border: 2px solid #000;
@@ -11,7 +15,9 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  background-color: lightblue;
+  background-color: #fff;
+  margin-top: 20px;
+  border-radius: 50px;
 }
 .quizResult {
   font-weight: bold;
@@ -23,10 +29,10 @@ h1 {
 }
 #score {
   text-align: center;
-  font-size: 50px;
+  font-size: 40px;
 }
 #zeroPoint {
-  font-size: 50px;
+  font-size: 40px;
   margin: 0 auto;
   margin-top: 80px;
 }

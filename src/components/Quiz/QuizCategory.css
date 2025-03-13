@@ -1,22 +1,31 @@
 .container {
+  padding-top: 50px;
+  background-color: #92ff64;
+}
+.inner {
   text-align: center;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap; /* 내용이 넘치면 자동으로 줄 바꿈 */
+  height: 550px;
 }
 .category {
-  background-color: lightgray;
   width: 450px;
   height: 100px;
   margin: 0 auto;
   margin-top: 50px;
-  border: 2px solid black;
+  background-color: #fff;
+  box-shadow: 2px 2px 3px #000;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-h2 {
+.container > h2 {
   text-align: center;
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 3px 3px 3px #000;
 }

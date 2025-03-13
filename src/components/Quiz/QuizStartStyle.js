@@ -5,6 +5,7 @@ const QuizStartComp = styled.div`
   height: 100%;
   h1 {
     margin: 0;
+    color: black;
   }
   p {
     margin-top: 50px;
@@ -22,12 +23,15 @@ const QuizStartComp = styled.div`
     }
     button {
       width: 250px;
-      height: 50px;
-      background-color: lightblue;
+      height: 60px;
+      background-color: #f9f871;
       cursor: pointer;
+      box-shadow: 2px 2px 2px #000;
+      font-weight: bold;
+      font-size: 18px;
     }
     button:hover {
-      background-color: lightgray;
+      background-color: rgb(241, 241, 110);
       font-size: 15px;
     }
   }

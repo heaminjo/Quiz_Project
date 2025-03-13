@@ -3,6 +3,7 @@ import HeaderComp from "./Headerstyle";
 import Nav from "./Nav";
 import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "../../App";
+import logo from "../../image/Logo.png";
 
 export default function Header() {
   //컨텍스트
@@ -24,7 +25,9 @@ export default function Header() {
     <HeaderComp>
       <div className="header_inner">
         <div className="header_title">
-          <h1 onClick={() => navigate("/")}>퀴즈 랜드</h1>
+          <h1 onClick={() => navigate("/")}>
+            <img src={logo} alt="" />
+          </h1>
         </div>
 
         <ul className="member_menu">

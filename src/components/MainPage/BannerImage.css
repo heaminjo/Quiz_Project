@@ -9,10 +9,11 @@
 }
 
 #BannerContainer {
-	width: 1300px;
-	margin: 0 auto;
+  width: 1300px;
+  margin: 0 auto;
   display: flex;
   align-items: center; /* 세로 중앙 정렬 */
+  margin-top: 30px;
 }
 
 #TextArea {
@@ -22,7 +23,7 @@
   margin-left: 30px;
   margin-top: 30px;
   position: relative; /* 기존 absolute 제거 */
-  display: flex;  /* 가로 정렬을 위한 flex 사용 */
+  display: flex; /* 가로 정렬을 위한 flex 사용 */
   flex-direction: column; /* 내부 요소를 세로 배치 */
   align-items: flex-start; /* 왼쪽 정렬 */
 }
@@ -43,8 +44,9 @@
   animation: fadeInLeft 0.8s;
   text-align: left; /* 텍스트 정렬을 왼쪽으로 */
 }
-
-
+h1 {
+  font-size: 40px;
+}
 .MainImage {
   width: 480px;
   height: 300px;

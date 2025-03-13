@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import LoginComp from "./LoginStyle";
 import { Link, useNavigate } from "react-router-dom";
 import { QuizContext } from "../../App";
-
+import "./LoginStyle.css";
 export default function Login() {
   //컨텍스트
   const { members, setLoginUser, setIsLogin } = useContext(QuizContext);
@@ -51,16 +51,16 @@ export default function Login() {
     localStorage.setItem("loginUser", JSON.stringify(user));
   };
   return (
-    <div className="page">
-      <div className="titleWrap">
+    <div className="l_page">
+      <div className="l_titleWrap">
         <h2>로그인</h2>
       </div>
       <div className="contentWrap">
-        <div className="inputTitle">이메일 주소</div>
+        <div className="inputTitle"></div>
         <div className="inputWrap">
           <input
             type="text"
-            className="input"
+            className="l_input"
             placeholder="이메일을 입력하세요"
             value={email}
             onChange={handleEmail}
@@ -68,17 +68,15 @@ export default function Login() {
         </div>
         <div className="errorMessageWrap">
           {!emailValid && email.length > 0 && (
-            <div>올바른 이메일을 입력해주세요.</div>
+            <div className="e_message">올바른 이메일을 입력해주세요.</div>
           )}
         </div>
 
-        <div className="inputTitle" style={{ marginTop: "26px" }}>
-          비밀번호
-        </div>
+        <div className="inputTitle" style={{ marginTop: "26px" }}></div>
         <div className="inputWrap">
           <input
             type="password"
-            className="input"
+            className="l_input"
             placeholder="대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요"
             value={pw}
             onChange={handlePw}
@@ -86,7 +84,9 @@ export default function Login() {
         </div>
         <div className="errorMessageWrap">
           {!pwValid && pw.length > 0 && (
-            <div>대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
+            <div className="e_message">
+              대문자영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.
+            </div>
           )}
         </div>
       </div>
@@ -95,15 +95,18 @@ export default function Login() {
         <button
           onClick={onClickConfirmButton}
           disabled={notAllow}
-          className="bottomButton"
+          className="l_Button"
         >
           로그인
         </button>
       </div>
       <hr />
       <div className="registerWrap">
-        <div className="registerTitle">
-          계정이 없으신가요? <Link to="/register">가입하기</Link>
+        <div className="go_register">
+          계정이 없으신가요?{" "}
+          <Link to="/register" className="go_join">
+            가입하기
+          </Link>
         </div>
       </div>
     </div>
