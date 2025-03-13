@@ -37,7 +37,7 @@ export default function ExHQuiz({ addTestData }) {
         style={{ display: resultModal ? "none" : "block" }}
       >
         {/*결과창 호출시 div영역 숨김 */}
-        <h1>일반 상식 퀴즈문제</h1>
+        <h1>역사 & 문화 퀴즈문제</h1>
         <div className="quiz_body">
           {isStart ? (
             <QuizStart

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ScoreItem from "./ScoreItem";
 import MyRankComp from "./MyRankStyle";
 import { QuizContext } from "../../App";
@@ -11,6 +11,7 @@ export default function MyRank() {
   const [maxScore, setMaxScore] = useState(0);
 
   const navigate = useNavigate();
+  const listHeight = useRef();
 
   //점수가 있는지 확인하는 변수수
   const [isScore, setIsScore] = useState(false);
@@ -29,8 +30,15 @@ export default function MyRank() {
     console.log("가장높은점수" + maxScore);
   }, []);
 
+  //useRef와 useEffect를 사용하여 기록록 길이 만큼 늘어나게 한다.
+  useEffect(() => {
+    console.log(userTestData.length);
+    if (userTestData.length > 7) {
+      listHeight.current.style.height += 100;
+    }
+  }, []);
   return (
-    <MyRankComp>
+    <MyRankComp ref={listHeight}>
       <div className="rank_inner">
         <div className="score_list">
           <h2>Test List</h2>

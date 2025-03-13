@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./RankingStyle.css";
+import { QuizContext } from "../../App";
 //leaderboard 대신 유저의 순위표 가져오기기
-export default function Ranking({ isLoading, ranking }) {
+export default function Ranking({ isLoading }) {
+  const { ranking, testData } = useContext(QuizContext);
   const [isRank, setIsRank] = useState(false);
-  useEffect(() => {
-    if (ranking != undefined) {
-      setIsRank(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (testData != undefined) {
+  //     setIsRank(true);
+  //   } else {
+  //     setIsRank(false);
+  //   }
+  // }, []);
   useEffect(() => {
     console.log(ranking);
   }, []);
@@ -15,7 +19,7 @@ export default function Ranking({ isLoading, ranking }) {
     <div className="leaderboard">
       <h2 className="leaderboard-title">점수판</h2>
       <ul className="leaderboard-list">
-        {isRank ? (
+        {testData.length != 0 ? (
           ranking.map((user, index) => (
             <li key={index} className="leaderboard-item">
               <span className="rank-number">{index + 1}.</span>

@@ -85,6 +85,7 @@ function App() {
         loginUser,
         setLoginUser,
         members,
+        setMembers,
         addTestData,
         joinMember,
         testData,

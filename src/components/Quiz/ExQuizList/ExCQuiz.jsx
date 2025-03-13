@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import MainQuizComp from "../../../pages/QuizPage/MainQuizStyle";
+import { Cquiz } from "../QuizList";
 import QuizStart from "./ExQuizStart";
 import QuizResult from "./ExQuizResult";
-import { Cquiz } from "../QuizList";
 export default function ExCQuiz({ addTestData }) {
   //퀴즈 데이터
   const [cquiz, setQuiz] = useState(Cquiz);
@@ -49,7 +49,7 @@ export default function ExCQuiz({ addTestData }) {
             <div className="quiz_ready">
               <ul className="description">
                 <li>문제 개수: 10문항 </li>
-                <li>제한 시간: 3분</li>
+                <li>제한 시간: 1분</li>
                 <li>답을 채우지 않고 넘어갈 시 오답</li>
               </ul>
               <button onClick={() => setIsStart(true)}>Start!</button>

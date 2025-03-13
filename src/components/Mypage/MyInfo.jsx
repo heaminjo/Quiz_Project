@@ -1,17 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./MyRankStyle";
 import "./MyInfoStyle.css";
 import profile from "../../image/kkk.gif";
+import { QuizContext } from "../../App";
 
 export default function Myinfo() {
   const navigate = useNavigate();
-  const [loginUser, setLoginUser] = useState("");
-
-  useEffect(() => {
-    setLoginUser(JSON.parse(localStorage.getItem("loginUser")));
-    console.log(loginUser.email); // 체크
-  }, []);
+  const { loginUser } = useContext(QuizContext);
   return (
     <div className="info_container">
       {/* 오른쪽 메인 컨텐츠 영역 */}

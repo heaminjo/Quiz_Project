@@ -37,7 +37,7 @@ export default function ExEQuiz({ addTestData }) {
         style={{ display: resultModal ? "none" : "block" }}
       >
         {/*결과창 호출시 div영역 숨김 */}
-        <h1>일반 상식 퀴즈문제</h1>
+        <h1>기초 영어 퀴즈문제</h1>
         <div className="quiz_body">
           {isStart ? (
             <QuizStart
@@ -50,7 +50,7 @@ export default function ExEQuiz({ addTestData }) {
             <div className="quiz_ready">
               <ul className="description">
                 <li>문제 개수: 10문항 </li>
-                <li>제한 시간: 3분</li>
+                <li>제한 시간: 1분</li>
                 <li>답을 채우지 않고 넘어갈 시 오답</li>
               </ul>
               <button onClick={() => setIsStart(true)}>Start!</button>

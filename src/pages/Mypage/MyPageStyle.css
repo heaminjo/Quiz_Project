@@ -3,9 +3,10 @@
   display: flex; /* 가로 정렬 */
   font-family: Arial, sans-serif;
   /* 화면 전체 높이 */
-  height: 650px;
   margin: 0;
   width: 100%;
+  min-height: 550px;
+  height: auto;
 }
 .side {
   width: 300px;

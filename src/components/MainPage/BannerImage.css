@@ -42,7 +42,8 @@
 .TextAreaClass {
   position: relative;
   animation: fadeInLeft 0.8s;
-  text-align: left; /* 텍스트 정렬을 왼쪽으로 */
+  text-align: left;
+  font-family: sans-serif;
 }
 h1 {
   font-size: 40px;

@@ -50,7 +50,7 @@ export default function MainQuiz({ addTestData }) {
             <div className="quiz_ready">
               <ul className="description">
                 <li>문제 개수: 20문항 </li>
-                <li>제한 시간: 3분</li>
+                <li>제한 시간: 1분</li>
                 <li>답을 채우지 않고 넘어갈 시 오답</li>
               </ul>
               <button onClick={() => setIsStart(true)}>Start!</button>

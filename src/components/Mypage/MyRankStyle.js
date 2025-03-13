@@ -4,8 +4,6 @@ const MyRankComp = styled.div`
   width: 100%;
   .rank_inner {
     display: flex;
-    height: 500px;
-
     .score_list {
       width: 700px;
       padding: 30px 50px;

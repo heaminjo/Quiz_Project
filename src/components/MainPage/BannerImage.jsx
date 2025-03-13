@@ -1,13 +1,14 @@
 import "./BannerImage.css";
-import img1 from "../../image/book.jpg";
-import img2 from "../../image/english.jpg";
-import img3 from "../../image/math.png";
-import img4 from "../../image/history.png";
-import img5 from "../../image/book5.jpg";
-import img6 from "../../image/book6.jpg";
-import img7 from "../../image/book7.jpg";
-import img8 from "../../image/book8.jpg";
-import img9 from "../../image/book9.jpg";
+import img1 from "../../image/mainquiz.jpg";
+import img2 from "../../image/book.jpg";
+import img3 from "../../image/english.jpg";
+import img4 from "../../image/science.jpg";
+import img5 from "../../image/history.png";
+import img6 from "../../image/sports.jpg";
+import img7 from "../../image/entertainment.jpg";
+import img8 from "../../image/culture.jpg";
+import img9 from "../../image/math.png";
+import img10 from "../../image/world.jpg";
 import React, { useContext, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,24 +25,65 @@ import { QuizContext } from "../../App";
 
 const TextSlide = [
   {
-    title: "상식퀴즈",
-    text: "상식퀴즈 입니다!",
+    title: "종합 실전 퀴즈",
+    text: `종합 실전 퀴즈입니다.\n당신의 퀴즈 실력을 뽐내보세요! \n(랭킹에 반영됩니다.)`,
     image: img1,
     page: "/mainQuiz",
   },
   {
-    title: "영어퀴즈",
-    text: "영어퀴즈 입니다!",
+    title: "상식 퀴즈",
+    text: "일반 상식 퀴즈입니다.\n상식적으로 문제를 냈어요!",
     image: img2,
-    page: "/quizCategory",
+    page: "/ExCquiz",
   },
-  { title: "수학퀴즈", text: "수학퀴즈 입니다!", image: img3 },
-  { title: "역사퀴즈", text: "역사퀴즈 입니다!", image: img4 },
-  { title: "5", text: "5번 문제!", image: img5 },
-  { title: "6", text: "6번 문제!", image: img6 },
-  { title: "7", text: "7번 문제!", image: img7 },
-  { title: "8", text: "8번 문제!", image: img8 },
-  { title: "9", text: "9번 문제!", image: img9 },
+  { 
+    title: "영어 퀴즈", 
+    text: "기초 영어 퀴즈입니다.\n이것만 풀면 토익 990점!", 
+    image: img3,
+    page: "/ExEquiz"
+  },
+  { 
+    title: "과학 퀴즈", 
+    text: "과학&기술 퀴즈입니다.\n신비한 과학의 세계로!",
+     image: img4,
+     page: "/ExSquiz"
+    },
+  { 
+    title: "역사 퀴즈",
+    text: "역사 & 문화 퀴즈입니다.\n과거로 돌아간 듯한 기분을 느껴보세요!", 
+    image: img5,
+    page: "/ExHquiz"
+  },
+  { 
+    title: "스포츠 퀴즈", 
+    text: "스포츠 & 레저 퀴즈입니다.\n스포츠 만능이 되고싶은 당신을 위한 퀴즈!", 
+    image: img6,
+    page: "/ExSPquiz"
+  },
+  { 
+    title: "엔터테인먼트 퀴즈", 
+    text: "엔터테인먼트 퀴즈입니다.\nTV속에 들어온 듯한 몰입감!", 
+    image: img7,
+    page: "/ExENquiz"
+  },
+  { 
+    title: "문학 & 철학 퀴즈", 
+    text: "문학 & 철학 퀴즈입니다.\n책 좋아하신가요? 다독가인 당신을 위한 퀴즈!", 
+    image: img8,
+    page: "/ExLquiz"
+  },
+  { 
+    title: "수학 퀴즈", 
+    text: "수학 & 논리 퀴즈입니다.\n다양한 사고력을 위한 퀴즈!\nIQ를 올려봅시다!", 
+    image: img9,
+    page: "/ExMquiz"
+  },
+  { 
+    title: "세계지리 퀴즈", 
+    text: "세계 여행 & 지리 퀴즈입니다.\n여행 좋아하는 당신!\n다양한 나라의 역사도 섭렵할 수 있을까요?", 
+    image: img10,
+    page: "/ExWquiz"
+  }
 ];
 
 const BannerImage = () => {
@@ -98,7 +140,7 @@ const BannerImage = () => {
         <h1 className="TextAreaClass" key={currentIndex}>
           {TextSlide[currentIndex].title}
         </h1>
-        <p className="TextAreaClass" key={randomData}>
+        <p className="TextAreaClass" key={randomData} style={{ whiteSpace: "pre-line" }}>
           {TextSlide[currentIndex].text}
         </p>
         <div onClick={() => loginCheck(TextSlide[currentIndex].page)}>

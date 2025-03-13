@@ -1,15 +1,17 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "./QuizResult.css";
 import { QuizContext } from "../../App";
-
+import { useNavigate } from "react-router-dom";
 //퀴즈 종료 결과 창 컴포넌트
-export default function QuizResult({ result }) {
+export default function QuizResult({ result, setResultModal }) {
   //컨텍스트
   const { addTestData, testData, loginUser } = useContext(QuizContext);
 
   const [user, setUser] = useState([]);
 
   const resultRef = useRef(testData.length);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(result.current.length);
@@ -48,7 +50,21 @@ export default function QuizResult({ result }) {
             <p id="zeroPoint">빵점입니다.</p>
           )}
         </div>
-        <p id="score">총점: {result.current.length}/10</p>
+        <div className="result_bottom">
+          <p id="score">총점: {result.current.length}/20</p>
+          <div className="menu_btn">
+            <button
+              onClick={() => {
+                setResultModal(false);
+                navigate("/mainquiz");
+              }}
+            >
+              다시하기
+            </button>
+            <button onClick={() => navigate("/rank")}>랭크 보기</button>
+            <button onClick={() => navigate("/myrank")}>마이 랭크 보기</button>
+          </div>
+        </div>
       </div>
     </>
   );
