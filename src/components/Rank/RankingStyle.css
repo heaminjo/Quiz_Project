@@ -1,0 +1,54 @@
+.leaderboard {
+  width: 100%;
+  max-width: 350px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-bottom: 150px;
+}
+
+.leaderboard-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+/* 순위 번호 */
+.rank-number {
+  font-size: 16px;
+  font-weight: bold;
+  width: 30px;
+  text-align: left;
+}
+
+/* 유저 이름 */
+.rank-name {
+  flex-grow: 1;
+  text-align: center;
+}
+
+/* 점수 */
+.rank-score {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}

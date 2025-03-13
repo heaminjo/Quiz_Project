@@ -17,6 +17,7 @@ export default function QuizResult({ result }) {
     const testData = {
       id: resultRef.current,
       memberId: loginUser.id,
+      memberName: loginUser.nickname,
       title: "실전 모의고사",
       testDate: new Date().toLocaleString(),
       resultNum: result.current.length,

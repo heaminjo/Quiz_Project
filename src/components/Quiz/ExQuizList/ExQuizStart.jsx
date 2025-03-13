@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import QuizStartComp from "./QuizStartStyle";
+import QuizStartComp from "../QuizStartStyle";
 import { useNavigate } from "react-router-dom";
-import QuizResult from "./QuizResult";
-import QuizList from "./QuizList";
+import QuizResult from "./ExQuizResult";
+
 //퀴즈 풀기 컴포넌트
-export default function QuizStart({ quiz, setIsStart, resultPrint }) {
+export default function ExQuizStart({ quiz, setIsStart, resultPrint }) {
   const navigate = useNavigate();
 
   // console.log("quiz시작 컴포넌트");
@@ -23,9 +23,10 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
   //상태 변수 관리
   const [round, setRound] = useState(1); //문항 수
   const [selQuiz, setSelQuiz] = useState([{ quizNum: 0 }]); //랜덤 퀴즈
+  console.log("변수관리 selQuiz:", selQuiz);
   const resultQuiz = useRef([]); //맞힌 퀴즈 배열
   const [inputResult, setInputResult] = useState(""); //정답 입력창
-  const numbers = useRef(Array.from({ length: 90 }, (_, index) => index + 1)); // 랜덤 숫자
+  const numbers = useRef(Array.from({ length: 10 }, (_, index) => index + 1)); // 랜덤 숫자
   const [time, setTime] = useState(60);
 
   useEffect(() => {
@@ -48,10 +49,10 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
   //----------------------------------------------------------------------------
   //라운드가 바뀔때마다 새로운 난수를 생성해 문제를 업데이트한다.
   useEffect(() => {
-    //만약에 라운드가 20이상이라면
+    //만약에 라운드가 10이상이라면
     //상위 컴포넌트에서 받아온 함수에 맞힌 퀴즈의 데이터를 넣어 호출하고
     //게임 상태를 종료
-    if (round > 20) {
+    if (round > 10) {
       resultPrint(resultQuiz);
       setRound(0);
       setIsStart(false);
@@ -61,13 +62,13 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
     const randomNum = getRandomArray(numbers.current);
     console.log(randomNum);
 
-    //중복방지를 위해 뽑힌 숫자는 배열에서 제외외
     numbers.current = numbers.current.filter((num) => num != randomNum);
     console.log(numbers.current);
-    //해당 번호의 문제를 find로 가져온다. 에러000000000000000000000000000000
+    //해당 번호의 문제를 find로 가져온다.
     const sel = quiz.find((m) => m.id == randomNum);
     setSelQuiz(sel);
   }, [round]);
+
   //--------------------------------------------------------------------------
 
   //버튼을 누르면 정답 체크
@@ -84,7 +85,6 @@ export default function QuizStart({ quiz, setIsStart, resultPrint }) {
     setInputResult("");
     setRound(round + 1);
   };
-
   return (
     <QuizStartComp>
       <span>{time}</span>

@@ -1,0 +1,22 @@
+.container {
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; /* 내용이 넘치면 자동으로 줄 바꿈 */
+}
+.category {
+  background-color: lightgray;
+  width: 450px;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: 50px;
+  border: 2px solid black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  text-align: center;
+}
