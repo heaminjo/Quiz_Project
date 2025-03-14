@@ -4,45 +4,232 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
-  margin-bottom: 100px;
+  position: relative;
+  background: radial-gradient(circle, #2c1a02, #0d0d0d);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  min-height: 70vh;
+  padding-top: 30px;
 }
 
-/* 제목 스타일 */
+/* 현재 순위 */
 .rank-title {
-  font-size: 26px;
+  font-size: 40px;
   font-weight: bold;
-  margin-bottom: 15px;
   text-align: center;
+  color: #d4af37;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
 }
 
-/* 내 순위 박스 */
+/* 현재 1등 순위 */
 .rank-box {
   padding: 20px;
   background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   text-align: center;
   width: 100%;
   max-width: 350px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
+  border: 1px solid #d4af37;
 }
 
-/* 텍스트 스타일 */
 .rank-text {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   margin: 8px 0;
+  color: #222;
 }
 
 .rank-highlight {
-  color: #007bff;
+  color: #d4af37;
   font-weight: bold;
+  font-size: 22px;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
 }
 
 .encourage-text {
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 17px;
   color: #ff5733;
   font-weight: bold;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
+}
+
+/* 전체 랭킹 박스 */
+.leaderboard {
+  width: 90%;
+  max-width: 450px;
+  background: linear-gradient(135deg, #fcfcfc, #ffffff);
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(122, 82, 82, 0.3);
+  padding: 20px;
+  text-align: center;
+  font-family: impact, charcoal, sans-serif;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  color: white;
+  margin: 50px auto;
+  display: block;
+  border: 5px solid #ffd700;
+  outline: 1px solid black;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+/* 리더보드 제목  */
+.leaderboard-title {
+  font-size: 26px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: #ff4081;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 10px;
+  display: inline-block;
+  position: absolute;
+  top: -45px;
+  left: 50%;
+  transform: translateX(-50%);
+  outline: 1px solid black;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 0.3s;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
+}
+/* 별 추가 */
+.leaderboard-title::after {
+  content: "⭐⭐ ⭐⭐⭐⭐ ";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25px;
+  color: #ffd700;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* 리스트 기본 스타일 */
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+/* 개별 순위 아이템 */
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: background 0.3s ease;
+  font-family: "Roboto";
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+.leaderboard-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.leaderboard-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.leaderboard-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.leaderboard-item:nth-child(n + 4) {
+  animation-delay: 0.8s;
+}
+
+/* 순위별 배경 스타일 */
+.leaderboard-item:nth-child(1) {
+  background: linear-gradient(135deg, #ffd700, #ffcc33);
+  outline: 1px solid black;
+}
+
+.leaderboard-item:nth-child(2) {
+  background: linear-gradient(135deg, #c0c0c0, #d9d9d9);
+  outline: 1px solid black;
+}
+
+.leaderboard-item:nth-child(3) {
+  background: linear-gradient(135deg, #cd7f32, #e69966);
+  outline: 1px solid black;
+}
+
+.leaderboard-item:nth-child(n + 4) {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  outline: 1px solid black;
+}
+
+/* 순위 번호 */
+.rank-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  width: 50px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
+}
+
+/* 유저 이름 */
+.rank-name {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
+}
+
+/* 점수 */
+.rank-score {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: white;
+  text-shadow: -1px -1px 0 #060569, 1px -1px 0 #060569, -1px 1px 0 #060569,
+    1px 1px 0 #060569;
+}
+
+/* 하단 버튼 */
+.leaderboard-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 1s;
+}
+
+/* 애니메이션 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

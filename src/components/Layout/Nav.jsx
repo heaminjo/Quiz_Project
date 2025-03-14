@@ -22,7 +22,7 @@ export default function Nav() {
     <NavComp>
       <div className="nav_inner">
         <ul className="nav_menu">
-          <li onClick={() => loginCheck("/mainQuiz")}>실전문제</li>
+          <li onClick={() => loginCheck("/mainQuiz/main")}>실전문제</li>
           <li onClick={() => loginCheck("/quizCategory")}>연습문제</li>
           <li onClick={() => navigate("/rank")}>랭크</li>
           <li onClick={() => loginCheck("/myinfo")}>마이페이지</li>

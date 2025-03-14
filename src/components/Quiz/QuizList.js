@@ -231,6 +231,7 @@ export const Mainquiz = [
   { id: 90, question: "'산티아고'는 어느 나라의 수도인가요?", result: "칠레" },
 ];
 
+//기초 상식식
 export const Cquiz = [
   { id: 1, question: "대한민국의 수도는 어디인가요?", result: "서울" },
   { id: 2, question: "지구는 어떤 모양인가요?", result: "구형" },
@@ -247,7 +248,7 @@ export const Cquiz = [
   { id: 9, question: "고양이는 어떤 동물인가요?", result: "포유류" },
   { id: 10, question: "북극은 어떤 기후가 특징인가요?", result: "냉대 기후" },
 ];
-
+//기초 영어어
 export const Equiz = [
   { id: 1, question: "'Hello'는 어떤 뜻인가요?", result: "안녕하세요" },
   { id: 2, question: "'Dog'는 어떤 동물인가요?", result: "개" },
@@ -264,7 +265,7 @@ export const Equiz = [
   { id: 9, question: "'Happy'는 어떤 감정인가요?", result: "행복한" },
   { id: 10, question: "'Friend'는 어떤 사람인가요?", result: "친구" },
 ];
-
+//과학 기술술
 export const Squiz = [
   { id: 1, question: "물이 끓는 온도는 몇 도인가요?", result: "100도" },
   {
@@ -293,7 +294,7 @@ export const Squiz = [
   { id: 9, question: "물에 떠 있는 물체는 무엇 때문인가요?", result: "부력" },
   { id: 10, question: "빛을 빨리 흡수하는 색은 무엇인가요?", result: "검정색" },
 ];
-
+//역사 문화
 export const Hquiz = [
   { id: 1, question: "대한민국의 건국 연도는 언제인가요?", result: "1948년" },
   {
@@ -331,6 +332,7 @@ export const Hquiz = [
   },
 ];
 
+//스포츠
 export const SPquiz = [
   { id: 1, question: "축구에서 골을 넣으면 몇 점을 얻나요?", result: "1점" },
   {
@@ -375,7 +377,7 @@ export const SPquiz = [
     result: "탁구채",
   },
 ];
-
+//엔터테이먼트트
 export const ENquiz = [
   {
     id: 1,
@@ -421,6 +423,7 @@ export const ENquiz = [
   { id: 10, question: "'짱구'의 주인공은 누구인가요?", result: "신짱구" },
 ];
 
+//문학 철학
 export const Lquiz = [
   { id: 1, question: "'삼국지'의 저자는 누구인가요?", result: "나관중" },
   { id: 2, question: "'어린 왕자'는 어떤 책인가요?", result: "소설" },
@@ -454,6 +457,7 @@ export const Lquiz = [
   { id: 10, question: "'햄릿'은 어떤 작품인가요?", result: "희곡" },
 ];
 
+//수학 논리리
 export const Mquiz = [
   { id: 1, question: "2 + 2는 얼마인가요?", result: "4" },
   { id: 2, question: "5 x 3은 얼마인가요?", result: "15" },
@@ -470,7 +474,7 @@ export const Mquiz = [
   { id: 9, question: "사각형은 어떤 모양인가요?", result: "네 개의 변" },
   { id: 10, question: "3과 4의 합은 얼마인가요?", result: "7" },
 ];
-
+//세계 여행행
 export const Wquiz = [
   { id: 1, question: "세계에서 가장 큰 나라는 어디인가요?", result: "러시아" },
   { id: 2, question: "미국의 수도는 어디인가요?", result: "워싱턴 D.C." },

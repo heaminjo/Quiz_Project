@@ -3,9 +3,10 @@ import "./QuizResult.css";
 import { QuizContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 //퀴즈 종료 결과 창 컴포넌트
-export default function QuizResult({ result, setResultModal }) {
+export default function QuizResult({ result, title, setResultModal }) {
   //컨텍스트
-  const { addTestData, testData, loginUser } = useContext(QuizContext);
+  const { addTestData, addRealTestData, testData, loginUser } =
+    useContext(QuizContext);
 
   const [user, setUser] = useState([]);
 
@@ -20,12 +21,17 @@ export default function QuizResult({ result, setResultModal }) {
       id: resultRef.current,
       memberId: loginUser.id,
       memberName: loginUser.nickname,
-      title: "실전 모의고사",
+      title: title,
       testDate: new Date().toLocaleString(),
       resultNum: result.current.length,
     };
 
     resultRef.current += 1;
+
+    //만약 실전문제라면 실전 테스트 기록에도 저장
+    if (title == "실전 문제") {
+      addRealTestData(testData);
+    }
 
     addTestData(testData);
   }, []);
@@ -51,7 +57,9 @@ export default function QuizResult({ result, setResultModal }) {
           )}
         </div>
         <div className="result_bottom">
-          <p id="score">총점: {result.current.length}/20</p>
+          <p id="score">
+            총점: {result.current.length}/{title == "실전 문제" ? 20 : 10}
+          </p>
           <div className="menu_btn">
             <button
               onClick={() => {

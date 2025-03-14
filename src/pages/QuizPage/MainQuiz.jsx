@@ -1,12 +1,79 @@
-import { useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import MainQuizComp from "./MainQuizStyle";
 import QuizStart from "../../components/Quiz/QuizStart";
 import QuizResult from "../../components/Quiz/QuizResult";
-import { Mainquiz } from "../../components/Quiz/QuizList";
+import { QuizContext } from "../../App";
+import {
+  Mainquiz,
+  Cquiz,
+  Equiz,
+  Squiz,
+  Hquiz,
+  SPquiz,
+  ENquiz,
+  Lquiz,
+  Mquiz,
+  Wquiz,
+} from "../../components/Quiz/QuizList";
+import { useParams } from "react-router-dom";
+export default function MainQuiz() {
+  //선택된 테스트를 가져옴
+  const { select } = useParams();
+  const [selQuiz, setSelQuiz] = useState([]);
+  const [selTitle, setSelTitle] = useState("");
+  //선택된 셀렉트의 따라서 퀴즈 저장장
+  useEffect(() => {
+    console.log(Cquiz);
+    switch (select) {
+      case "main":
+        setSelQuiz(Mainquiz);
+        setSelTitle("실전 문제");
+        break;
+      case "commen":
+        setSelQuiz(Cquiz);
+        setSelTitle("일반 상식 퀴즈");
+        break;
+      case "english":
+        setSelQuiz(Equiz);
+        setSelTitle("기초 영어 퀴즈");
+        break;
+      case "science":
+        setSelQuiz(Squiz);
+        setSelTitle("과학&기술 퀴즈");
+        break;
+      case "history":
+        setSelQuiz(Hquiz);
+        setSelTitle("역사&문화 퀴즈");
+        break;
+      case "sports":
+        setSelQuiz(SPquiz);
+        setSelTitle("스포츠&레저 퀴즈");
+        break;
+      case "entertainment":
+        setSelQuiz(ENquiz);
+        setSelTitle("엔터테이먼트 퀴즈");
+        break;
+      case "literature":
+        setSelQuiz(Lquiz);
+        setSelTitle("문화&철학 퀴즈");
+        break;
+      case "math":
+        setSelQuiz(Mquiz);
+        setSelTitle("수학&논리 퀴즈");
+        break;
+      case "world":
+        setSelQuiz(Wquiz);
+        setSelTitle("세계 여행&지리 퀴즈");
+        break;
+      default:
+        break;
+    }
+  }, [select]);
 
-export default function MainQuiz({ addTestData }) {
-  //퀴즈 데이터
-  const [Mquiz, setQuiz] = useState(Mainquiz);
+  useEffect(() => {
+    console.log(selQuiz.map((item) => item.question));
+  }, [selQuiz]);
+  const { addTestData } = useContext(QuizContext);
 
   //퀴즈 스타트 상태 값
   const [isStart, setIsStart] = useState(false);
@@ -37,11 +104,12 @@ export default function MainQuiz({ addTestData }) {
         style={{ display: resultModal ? "none" : "block" }}
       >
         {/*결과창 호출시 div영역 숨김 */}
-        <h1>실전 퀴즈문제</h1>
+        <h1>{selTitle}</h1>
         <div className="quiz_body">
           {isStart ? (
             <QuizStart
-              quiz={Mquiz}
+              quiz={selQuiz}
+              title={selTitle}
               setIsStart={setIsStart}
               setResultModal={setResultModal}
               resultPrint={resultPrint}
@@ -49,7 +117,7 @@ export default function MainQuiz({ addTestData }) {
           ) : (
             <div className="quiz_ready">
               <ul className="description">
-                <li>문제 개수: 20문항 </li>
+                <li>문제 개수: {selTitle == "실전 문제" ? 20 : 10}문항 </li>
                 <li>제한 시간: 1분</li>
                 <li>답을 채우지 않고 넘어갈 시 오답</li>
               </ul>
@@ -62,6 +130,7 @@ export default function MainQuiz({ addTestData }) {
       {resultModal && (
         <QuizResult
           result={result}
+          title={selTitle}
           addTestData={addTestData}
           setResultModal={setResultModal}
         />

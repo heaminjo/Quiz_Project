@@ -13,14 +13,6 @@ import RankPage from "./pages/RankPage/RankPage";
 import MyPage from "./pages/Mypage/MyPage";
 import Myinfo from "./components/Mypage/MyInfo";
 import MyPageEdit from "./components/Mypage/MypageEdit";
-import ExEQuiz from "./components/Quiz/ExQuizList/ExEQuiz";
-import ExSQuiz from "./components/Quiz/ExQuizList/ExSQuiz";
-import ExHQuiz from "./components/Quiz/ExQuizList/ExHQuiz";
-import ExENQuiz from "./components/Quiz/ExQuizList/ExENQuiz";
-import ExLQuiz from "./components/Quiz/ExQuizList/ExLQuiz";
-import ExSPQuiz from "./components/Quiz/ExQuizList/ExSPQuiz";
-import ExMQuiz from "./components/Quiz/ExQuizList/ExMQuiz";
-import ExWQuiz from "./components/Quiz/ExQuizList/ExWQuiz";
 
 export const QuizContext = React.createContext();
 
@@ -39,9 +31,10 @@ function App() {
   //로그인 된 유저
   const [loginUser, setLoginUser] = useState([]); //로그인 유저
 
-  const [userTestData, setUserTestData] = useState([]); // 유저의 문제풀이 데이터
-  const [testData, setTestData] = useState([]); //전체 문제 풀이 데이터
-  const [ranking, setRanking] = useState([]); // 전체 순위 리스트
+  const [userTestData, setUserTestData] = useState([]); // 유저 테스트 기록
+  const [testData, setTestData] = useState([]); //전체 테스트 기록
+  const [realTestData, setRealTestData] = useState([]); // 실전 테스트 기록
+  const [ranking, setRanking] = useState([]); // 실전 전체 순위
   const idRef = useRef(1);
 
   // //로그인 유저 정보 확인
@@ -65,7 +58,13 @@ function App() {
     console.log(members);
   };
 
-  //테스트 기록 추가
+  //실전 테스트 기록 추가
+  const addRealTestData = (test) => {
+    setRealTestData([...realTestData, test]);
+    console.log(realTestData);
+  };
+
+  //전체 테스트 기록 추가
   const addTestData = (test) => {
     setTestData([...testData, test]);
     console.log(testData);
@@ -74,8 +73,8 @@ function App() {
   //새로운 전체 테스트 기록에 데이터가 추가 될 경우 랭킹 변동(내림차순)
   useEffect(() => {
     console.log(testData);
-    setRanking([...testData].sort((a, b) => b.resultNum - a.resultNum));
-  }, [testData]);
+    setRanking([...realTestData].sort((a, b) => b.resultNum - a.resultNum));
+  }, [realTestData]);
 
   return (
     <QuizContext.Provider
@@ -93,6 +92,9 @@ function App() {
         setUserTestData,
         ranking,
         setRanking,
+        setRealTestData,
+        realTestData,
+        addRealTestData,
       }}
     >
       <Routes>
@@ -100,16 +102,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/mainQuiz" element={<MainQuiz />} />
+          <Route path="/mainQuiz/:select" element={<MainQuiz />} />
           <Route path="/quizCategory" element={<QuizCategory />} />
-          <Route path="/ExEquiz" element={<ExEQuiz />} />
-          <Route path="/ExSquiz" element={<ExSQuiz />} />
-          <Route path="/ExHquiz" element={<ExHQuiz />} />
-          <Route path="/ExSPquiz" element={<ExSPQuiz />} />
-          <Route path="/ExENquiz" element={<ExENQuiz />} />
-          <Route path="/ExLquiz" element={<ExLQuiz />} />
-          <Route path="/ExMquiz" element={<ExMQuiz />} />
-          <Route path="/ExWquiz" element={<ExWQuiz />} />
           <Route element={<MyPage />}>
             <Route path="/myinfo" element={<Myinfo />} />
             <Route path="/myrank" element={<MyRank />} />
@@ -123,6 +117,3 @@ function App() {
 }
 
 export default App;
-//추가할 기능
-//1. 문제풀이에서 자동 input 포커싱
-//2. enter 누르면 버튼 클릭되도록하기
