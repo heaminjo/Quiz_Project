@@ -1,6 +1,7 @@
 package com.example.heamin01.controller;
 
-import com.example.heamin01.dto.MemberDTO;
+import com.example.heamin01.dto.LoginRequestDTO;
+import com.example.heamin01.dto.memberDto.MemberRequestDTO;
 import com.example.heamin01.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,12 @@ public class AuthController {
 
     //회원 가입
     @PostMapping("/join")
-    public ResponseEntity<Boolean> join(@Validated @RequestBody MemberDTO memberDTO){
-        return ResponseEntity.ok(memberService.join(memberDTO));
+    public ResponseEntity<Boolean> join(@Validated @RequestBody MemberRequestDTO memberRequestDTO){
+        return ResponseEntity.ok(memberService.join(memberRequestDTO));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO){
+        return memberService.login(loginRequestDTO);
     }
 }
