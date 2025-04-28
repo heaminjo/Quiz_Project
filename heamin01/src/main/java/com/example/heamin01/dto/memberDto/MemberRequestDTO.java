@@ -1,6 +1,7 @@
 package com.example.heamin01.dto.memberDto;
 
 import com.example.heamin01.entity.Member;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 @Getter @Setter
 @NoArgsConstructor @Log4j2
+@AllArgsConstructor
 public class MemberRequestDTO {
     private Long id;
     private String email;

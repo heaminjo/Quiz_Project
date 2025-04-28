@@ -1,17 +1,14 @@
 package com.example.heamin01.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor @AllArgsConstructor
 public class LoginResponseDTO {
     private Long id;
     private String name;
     private String profileImage;
-
-
 }

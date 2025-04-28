@@ -1,12 +1,11 @@
 package com.example.heamin01.dto.memberDto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor @AllArgsConstructor
 public class MemberResponseDTO {
     private Long id;
