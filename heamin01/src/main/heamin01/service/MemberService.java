@@ -1,5 +1,6 @@
 package com.example.heamin01.service;
 
+import com.example.heamin01.util.ApiResponse;
 import com.example.heamin01.util.ErrorResponse;
 import com.example.heamin01.dto.LoginRequestDTO;
 import com.example.heamin01.dto.memberDto.MemberRequestDTO;
@@ -8,7 +9,12 @@ import com.example.heamin01.entity.Member;
 import com.example.heamin01.mapper.MemberMapper;
 import com.example.heamin01.repository.MemberRepository;
 
+
+import com.example.heamin01.util.exception.IncorrectFormat;
+import com.example.heamin01.util.exception.PropertyException;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.log4j.Log4j2;
+import org.hibernate.PropertyValueException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +27,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+@Log4j2
 @Service
 public class MemberService {
 
@@ -36,12 +45,29 @@ public class MemberService {
     private PasswordEncoder passwordEncoder;
 
     //회원가입
-    public Boolean join(MemberRequestDTO memberRequestDTO){
+    //예외 처리 필요
+    public ResponseEntity<?> join(MemberRequestDTO dto) throws Exception{
+
+        Member member=null;
         //암호화 변환
-        memberRequestDTO.setPassword(passwordEncoder.encode(memberRequestDTO.getPassword()));
-        //저장
-        memberRepository.save(memberRequestDTO.toEntity());
-        return true;
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+
+        if(dto.getName() == null){
+            throw new PropertyException("필수값이 누락되었습니다.");
+        }
+        if (!dto.getEmail().matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+            throw new IncorrectFormat("이메일의 형식이 잘못되었습니다.");
+        }
+            if (!memberRepository.existsByEmail(dto.getEmail())) {
+                member = memberRepository.save(dto.toEntity());
+
+
+                log.info("회원가입 성공 => " + dto.getName());
+            } else {
+                log.info("회원가입 실패 => " + dto);
+            }
+        return ResponseEntity.ok(new ApiResponse<MemberResponseDTO>(true,mapper.toMemberDto(member),"회원 가입에 성공하셨습니다."));
     }
 
     //로그인
@@ -53,12 +79,15 @@ public class MemberService {
             //로그인 성공 시 session에 데이터 저장
             session.setAttribute("loginID",member.get().getId());
             session.setAttribute("loginName",member.get().getName());
-
+           
+            log.info("로그인 성공 => "+member.get().getId() + member.get().getName());
+           
             return ResponseEntity.ok(mapper.toLoginDto(member.get()));
         }else{
             //ResponseEntity.status(HttpStatus.UNAUTHORIZED).body
+            log.info("로그인 실패 => 존재하지 않는 아이디 혹은 비밀번호 ");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new ErrorResponse("error","로그인에 실패하였습니다.","아이디 또는 비밀번호가 일치하지 않습니다.")
+                    new ErrorResponse(HttpStatus.BAD_REQUEST,"아이디 또는 비밀번호가 일치하지 않습니다.","..")
             );
         }
     }
@@ -68,12 +97,10 @@ public class MemberService {
         List<MemberResponseDTO> list = new ArrayList<>();
         List<Member> memberList = memberRepository.findAll();
 
-        //반환할 List에 DTO를 담는다.
-        for(Member member : memberList){
-            MemberResponseDTO dto = new MemberResponseDTO();
-            dto = mapper.toMemberDto(member);
-            list.add(dto);
-        }
+        //DTO로 변환 하여 저장
+        Function<Member,MemberResponseDTO> fn = (m) -> mapper.toMemberDto(m);
+        list = memberList.stream().map(fn).toList();
+        list.forEach(i->System.out.println(i.getName()));
         return list;
     }
 
@@ -85,7 +112,7 @@ public class MemberService {
         if(member.isPresent()){
             return ResponseEntity.ok(mapper.toMemberDto(member.get()));
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("not found","조회되는 회원이 없습니다.","조회 데이터 없음"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND,"조회되는 회원이 없습니다.","조회 데이터 없음"));
         }
     }
 
@@ -120,7 +147,7 @@ public class MemberService {
             //ResponseDTO 반환
             return ResponseEntity.ok(mapper.toMemberDto(memberRepository.findById(dto.getId()).get()));
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse("404","수정에 실패하였습니다.","존재하지않는 회원이거나 유효성 검사 실패"));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(HttpStatus.NOT_FOUND,"수정에 실패하였습니다.","존재하지않는 회원이거나 유효성 검사 실패"));
         }
     }
 }
