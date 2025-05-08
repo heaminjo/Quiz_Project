@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
 @RequestMapping("/member")
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

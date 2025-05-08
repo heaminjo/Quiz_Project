@@ -3,6 +3,7 @@ package com.example.heamin01.controller;
 import com.example.heamin01.dto.LoginRequestDTO;
 import com.example.heamin01.dto.memberDto.MemberRequestDTO;
 import com.example.heamin01.service.MemberService;
+import com.example.heamin01.util.ApiResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -24,8 +24,8 @@ public class AuthController {
 
     //회원 가입
     @PostMapping("/join")
-    public ResponseEntity<Boolean> join(@Validated @RequestBody MemberRequestDTO memberRequestDTO){
-        return ResponseEntity.ok(memberService.join(memberRequestDTO));
+    public ResponseEntity<?> join(@Validated @RequestBody MemberRequestDTO memberRequestDTO) throws Exception {
+        return memberService.join(memberRequestDTO);
     }
 
     @PostMapping("/login")

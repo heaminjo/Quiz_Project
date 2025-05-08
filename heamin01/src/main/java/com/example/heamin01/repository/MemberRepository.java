@@ -9,8 +9,10 @@ import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member,Long> {
     //null반환은 바람직하지 않으므로 .empty()
-    Optional<Member> findByEmailAndPassword(String email,String password);
+    Optional<Member> findByEmail(String email);
 
     @Override
     boolean existsById(Long aLong);
+
+    boolean existsByEmail(String email);
 }

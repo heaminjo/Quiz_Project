@@ -1,5 +1,6 @@
 package com.example.heamin01.entity;
 
+import com.example.heamin01.dto.scoreDto.ScoreResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,8 @@ import java.util.Optional;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Score {
+@Builder
+public class Score extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -28,11 +30,20 @@ public class Score {
 
     @Column
     private int resultNum;
-    @Column(columnDefinition = "date")
-    private LocalDate createDate = LocalDate.now();
 
-    public Score(int resultNum, LocalDate createDate) {
-        this.resultNum = resultNum;
-        this.createDate = createDate;
+    public Score(int resultNum) {
+        this.resultNum = resultNum;}
+
+    public Score(Member member, Category category, int resultNum) {
+    }
+
+    public ScoreResponseDTO entityToDto(Score s) {
+        ScoreResponseDTO dto = ScoreResponseDTO.builder()
+                .member(s.getMember())
+                .category(s.getCategory())
+                .resultNum(s.getResultNum())
+                .regDate(s.getRegDate())
+                .build();
+        return dto;
     }
 }
