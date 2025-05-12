@@ -13,4 +13,9 @@ public class ApiResponse<T> {
     private boolean success; //성공 / 실패 여부
     private T data; //응답 데이터(타입은 미정)
     private String message;
+
+    public ApiResponse(boolean success,String message ) {
+        this.message = message;
+        this.success = success;
+    }
 }

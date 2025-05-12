@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 // security의 SecurityAutoConfiguration 클래스로 인해 로그인 view 자동 출력을 막는다.
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+//@SpringBootApplication
 @Log4j2
 public class Heamin01Application {
 

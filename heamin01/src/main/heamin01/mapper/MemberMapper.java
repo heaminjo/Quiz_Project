@@ -1,10 +1,12 @@
 package com.example.heamin01.mapper;
 
+import com.example.heamin01.dto.CategoryResponseDTO;
 import com.example.heamin01.dto.LoginResponseDTO;
 import com.example.heamin01.dto.QuizDTO;
 import com.example.heamin01.dto.memberDto.MemberRequestDTO;
 import com.example.heamin01.dto.memberDto.MemberResponseDTO;
 import com.example.heamin01.dto.scoreDto.ScoreResponseDTO;
+import com.example.heamin01.entity.Category;
 import com.example.heamin01.entity.Member;
 import com.example.heamin01.entity.Quiz;
 import com.example.heamin01.entity.Score;
@@ -17,5 +19,5 @@ public interface MemberMapper {
     LoginResponseDTO toLoginDto(Member member);
     ScoreResponseDTO toScoreDto(Score score);
     QuizDTO toQuizDto(Quiz quiz);
-
+    CategoryResponseDTO toCategoryDTO(Category category);
 };

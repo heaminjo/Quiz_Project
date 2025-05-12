@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
 @RequestMapping("/member")
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -48,7 +47,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.memberProfileUpload(session,profileImagef));
     }
     //정보수정
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<?> memberUpdate(@RequestBody MemberRequestDTO dto){
         return memberService.memberUpdate(dto);
     }

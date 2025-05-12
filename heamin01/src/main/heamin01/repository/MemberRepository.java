@@ -13,4 +13,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
 
     @Override
     boolean existsById(Long aLong);
+
+    boolean existsByEmail(String email);
 }

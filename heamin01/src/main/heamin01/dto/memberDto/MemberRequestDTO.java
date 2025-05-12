@@ -1,19 +1,20 @@
 package com.example.heamin01.dto.memberDto;
 
 import com.example.heamin01.entity.Member;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 @Getter @Setter
 @NoArgsConstructor @Log4j2
 @AllArgsConstructor
-public class MemberRequestDTO {
+@Builder
+public class MemberRequestDTO   {
     private Long id;
     private String email;
     private String password;
@@ -21,8 +22,15 @@ public class MemberRequestDTO {
     private LocalDate birth;
     private String profileImage;
     private MultipartFile profileImagef;
-    //dto -> entity
+
+
     public Member toEntity(){
-        return new Member(id,email,password,name,birth,profileImage);
+        Member member = Member.builder()
+                .email(email)
+                .password(password)
+                .name(name)
+                .birth(birth)
+                .build();
+        return member;
     }
 }

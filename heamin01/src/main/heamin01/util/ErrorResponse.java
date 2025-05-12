@@ -1,6 +1,7 @@
 package com.example.heamin01.util;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
@@ -8,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 // 에러 시 반환될 DTO
 public class ErrorResponse {
-    private String status;
+    private HttpStatus status;
     private String message;
-    private String details;
+    private String code;
 }
