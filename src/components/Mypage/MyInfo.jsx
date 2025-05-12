@@ -4,10 +4,24 @@ import "./MyRankStyle";
 import "./MyInfoStyle.css";
 import profile from "../../image/kkk.gif";
 import { QuizContext } from "../../App";
+import MemberApi from "../../api/MemberApi";
 
 export default function Myinfo() {
   const navigate = useNavigate();
-  const { loginUser } = useContext(QuizContext);
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const id = sessionStorage.getItem("loginID");
+        const rsp = await MemberApi.detail(id);
+        setUser(rsp.data);
+      } catch (e) {
+        navigate("/error", { state: e.rsp.data });
+      }
+    })();
+  }, []);
   return (
     <div className="info_container">
       {/* 오른쪽 메인 컨텐츠 영역 */}
@@ -19,10 +33,13 @@ export default function Myinfo() {
           </div>
 
           <div className="user userName">
-            <p>{loginUser.nickname}</p>
+            <p>{user.name}</p>
           </div>
           <div className="user userEmail">
-            <p>{loginUser.email}</p>
+            <p>{user.email}</p>
+          </div>
+          <div className="user userBirth">
+            <p>{user.birth}</p>
           </div>
         </div>
         <div className="modify">

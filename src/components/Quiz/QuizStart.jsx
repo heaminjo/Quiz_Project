@@ -6,35 +6,15 @@ import QuizList from "./QuizList";
 //퀴즈 풀기 컴포넌트
 export default function QuizStart({ quiz, title, setIsStart, resultPrint }) {
   const navigate = useNavigate();
-  const leng = useRef(quiz.length); //문제의 개수를 배열에
-  const getRandomArray = (array) => {
-    //만약 뽑을 랜덤 숫자가 남아있지않다면 null 반환
-    if (array === 0) return null;
-    //배열의 숫자 길이 만큼 범위의 난수를 생성하는 변수
-    const randomIndex = Math.floor(Math.random() * array.length);
-    // console.log(randomIndex);
-    return array[randomIndex];
-  };
 
   //상태 변수 관리
-  const [round, setRound] = useState(1); //문항 수
-  const [selQ, setSelQ] = useState([{ quizNum: 0 }]); //랜덤 퀴즈
+  const [round, setRound] = useState(1); //라운드드
+  const [selQ, setSelQ] = useState([{ quizNum: 0 }]); //현재 문제제
   const resultQuiz = useRef([]); //맞힌 퀴즈 배열
   const [inputResult, setInputResult] = useState(""); //정답 입력창
-  const numbers = useRef(Array.from({ length: 10 }, (_, index) => index + 1)); // 랜덤 숫자
   const [time, setTime] = useState(60);
-  const RoundQ = useRef(10);
 
-  //실전과 연습에 따라 문제 범위 길이 조절
-  useEffect(() => {
-    console.log(title);
-    if (title === "실전 문제") {
-      console.log(title);
-      numbers.current = Array.from({ length: 90 }, (_, index) => index + 1);
-      RoundQ.current = 20;
-    }
-  }, []);
-
+  //타이머머
   useEffect(() => {
     //시간이 모두 소모 될 시 게임 종료 후 결과 반환
     if (time <= 0) {
@@ -56,40 +36,29 @@ export default function QuizStart({ quiz, title, setIsStart, resultPrint }) {
   //라운드가 바뀔때마다 새로운 난수를 생성해 문제를 업데이트한다.
   useEffect(() => {
     //만약에 라운드가 20이상이라면
-    //상위 컴포넌트에서 받아온 함수에 맞힌 퀴즈의 데이터를 넣어 호출하고
-    //게임 상태를 종료
-    if (round > RoundQ.current) {
-      resultPrint(resultQuiz);
+    //게임 상태를 종료하고 결과 리스트를 전달하며 결과창으로 이동동
+    if (round > quiz.length) {
+      console.log(resultQuiz.current);
       setRound(0);
       setIsStart(false);
+      navigate("/result", { state: { list: resultQuiz.current } });
     }
 
-    //난수 받기
-    const randomNum = getRandomArray(numbers.current);
-    console.log(randomNum);
-
-    //중복방지를 위해 뽑힌 숫자는 배열에서 제외외
-    numbers.current = numbers.current.filter((num) => num != randomNum);
-    console.log(numbers.current);
-
-    const sel = quiz.find((m) => m.id == randomNum);
-    setSelQ(sel);
+    //다음 문제를 set
+    setSelQ(quiz[round - 1]);
   }, [round]);
-  //--------------------------------------------------------------------------
+  // --------------------------------------------------------------------------
 
   //버튼을 누르면 정답 체크
   const resultCheck = () => {
     //만약 현재 문제와 입력한 정답이 일치하다면
     if (selQ.result == inputResult) {
-      //console.log("정답!" + selQuiz.result); 완료
-
       //정답 배열에 넣을 때 문제 번호 칼람을 추가 하여 round를 넣어 전달
       resultQuiz.current.push({ ...selQ, quizNum: round });
-      // console.log("배열에 정답 저장 " + resultQuiz.current[0].quizNum); //완료
     }
     //다음 라운드
-    setInputResult("");
-    setRound(round + 1);
+    setInputResult(""); //값 비워주기
+    setRound(round + 1); //라운드 상승
   };
 
   return (

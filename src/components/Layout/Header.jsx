@@ -4,17 +4,18 @@ import Nav from "./Nav";
 import { useContext, useEffect, useState } from "react";
 import { QuizContext } from "../../App";
 import logo from "../../image/Logo.png";
+import MemberApi from "../../api/MemberApi";
 
 export default function Header() {
   //컨텍스트
-  const { isLogin, setIsLogin, loginUser, setLoginUser } =
+  const { isLogin, loginUser, setIsLogin, setLoginUser } =
     useContext(QuizContext);
 
   const navigate = useNavigate();
 
   //로그아웃 클릭
   const clickLogout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     alert("로그아웃 됩니다.");
     setIsLogin(false);
     setLoginUser([]);
@@ -33,7 +34,7 @@ export default function Header() {
         <ul className="member_menu">
           {isLogin ? (
             <>
-              <li>{loginUser.nickname}님 환영합니다.</li>
+              <li>{loginUser}님 환영합니다.</li>
               <li onClick={() => clickLogout()}>로그아웃</li>
             </>
           ) : (

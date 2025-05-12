@@ -28,62 +28,62 @@ const TextSlide = [
     title: "종합 실전 퀴즈",
     text: `종합 실전 퀴즈입니다.\n당신의 퀴즈 실력을 뽐내보세요! \n(랭킹에 반영됩니다.)`,
     image: img1,
-    page: "/mainQuiz",
+    page: "/mainQuiz/main",
   },
   {
     title: "상식 퀴즈",
     text: "일반 상식 퀴즈입니다.\n상식적으로 문제를 냈어요!",
     image: img2,
-    page: "/ExCquiz",
+    page: "/mainQuiz/commen",
   },
-  { 
-    title: "영어 퀴즈", 
-    text: "기초 영어 퀴즈입니다.\n이것만 풀면 토익 990점!", 
+  {
+    title: "영어 퀴즈",
+    text: "기초 영어 퀴즈입니다.\n이것만 풀면 토익 990점!",
     image: img3,
-    page: "/ExEquiz"
+    page: "/mainQuiz/english",
   },
-  { 
-    title: "과학 퀴즈", 
+  {
+    title: "과학 퀴즈",
     text: "과학&기술 퀴즈입니다.\n신비한 과학의 세계로!",
-     image: img4,
-     page: "/ExSquiz"
-    },
-  { 
+    image: img4,
+    page: "/mainQuiz/science",
+  },
+  {
     title: "역사 퀴즈",
-    text: "역사 & 문화 퀴즈입니다.\n과거로 돌아간 듯한 기분을 느껴보세요!", 
+    text: "역사 & 문화 퀴즈입니다.\n과거로 돌아간 듯한 기분을 느껴보세요!",
     image: img5,
-    page: "/ExHquiz"
+    page: "/mainQuiz/history",
   },
-  { 
-    title: "스포츠 퀴즈", 
-    text: "스포츠 & 레저 퀴즈입니다.\n스포츠 만능이 되고싶은 당신을 위한 퀴즈!", 
+  {
+    title: "스포츠 퀴즈",
+    text: "스포츠 & 레저 퀴즈입니다.\n스포츠 만능이 되고싶은 당신을 위한 퀴즈!",
     image: img6,
-    page: "/ExSPquiz"
+    page: "/mainQuiz/sports",
   },
-  { 
-    title: "엔터테인먼트 퀴즈", 
-    text: "엔터테인먼트 퀴즈입니다.\nTV속에 들어온 듯한 몰입감!", 
+  {
+    title: "엔터테인먼트 퀴즈",
+    text: "엔터테인먼트 퀴즈입니다.\nTV속에 들어온 듯한 몰입감!",
     image: img7,
-    page: "/ExENquiz"
+    page: "/mainQuiz/entertainment",
   },
-  { 
-    title: "문학 & 철학 퀴즈", 
-    text: "문학 & 철학 퀴즈입니다.\n책 좋아하신가요? 다독가인 당신을 위한 퀴즈!", 
+  {
+    title: "문학 & 철학 퀴즈",
+    text: "문학 & 철학 퀴즈입니다.\n책 좋아하신가요? 다독가인 당신을 위한 퀴즈!",
     image: img8,
-    page: "/ExLquiz"
+    page: "/mainQuiz/literature",
   },
-  { 
-    title: "수학 퀴즈", 
-    text: "수학 & 논리 퀴즈입니다.\n다양한 사고력을 위한 퀴즈!\nIQ를 올려봅시다!", 
+  {
+    title: "수학 퀴즈",
+    text: "수학 & 논리 퀴즈입니다.\n다양한 사고력을 위한 퀴즈!\nIQ를 올려봅시다!",
     image: img9,
-    page: "/ExMquiz"
+    page: "/mainQuiz/math",
   },
-  { 
-    title: "세계지리 퀴즈", 
-    text: "세계 여행 & 지리 퀴즈입니다.\n여행 좋아하는 당신!\n다양한 나라의 역사도 섭렵할 수 있을까요?", 
+  {
+    title: "세계지리 퀴즈",
+    text: "세계 여행 & 지리 퀴즈입니다.\n여행 좋아하는 당신!\n다양한 나라의 역사도 섭렵할 수 있을까요?",
     image: img10,
-    page: "/ExWquiz"
-  }
+    page: "/mainQuiz/world",
+  },
 ];
 
 const BannerImage = () => {
@@ -140,7 +140,11 @@ const BannerImage = () => {
         <h1 className="TextAreaClass" key={currentIndex}>
           {TextSlide[currentIndex].title}
         </h1>
-        <p className="TextAreaClass" key={randomData} style={{ whiteSpace: "pre-line" }}>
+        <p
+          className="TextAreaClass"
+          key={randomData}
+          style={{ whiteSpace: "pre-line" }}
+        >
           {TextSlide[currentIndex].text}
         </p>
         <div onClick={() => loginCheck(TextSlide[currentIndex].page)}>

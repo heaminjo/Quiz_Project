@@ -4,41 +4,48 @@ import MyRankComp from "./MyRankStyle";
 import { QuizContext } from "../../App";
 import king from "../../image/king.png";
 import { useNavigate } from "react-router-dom";
+import ScoreApi from "../../api/ScoreApi";
 
 export default function MyRank() {
-  //컨텍스트
-  const { loginUser, userTestData } = useContext(QuizContext);
-  const [maxScore, setMaxScore] = useState(0);
-
   const navigate = useNavigate();
-  const listHeight = useRef();
+
+  //페이지
+  const [page, setPage] = useState(0);
+  const [keyword, setKeyword] = useState("");
+  const [sort, setSort] = useState("");
+
+  const [userTestData, setUserTestData] = useState([]);
 
   //점수가 있는지 확인하는 변수수
   const [isScore, setIsScore] = useState(false);
+  const [bestScore, setBestScore] = useState([]);
 
-  //로드 시 가장 높은 점수를 구한다.
-  useEffect(() => {
-    //테스트 기록이 존재할 경우우
-    //map을 통해점수만 배열로 가져오기
-    if (userTestData.length != 0) {
-      const score = userTestData.map((test) => test.resultNum);
+  //리스트 불러오기
+  const getList = async () => {
+    const memberId = sessionStorage.getItem("loginID");
+    const rsp = await ScoreApi.scoreList(memberId, page, 10, sort, keyword);
 
-      //점수들중 가장 높은 점수
-      setMaxScore(Math.max(...score));
+    setUserTestData(rsp.data.content);
+  };
+
+  //최고 점수 불러오기
+  const getBest = async () => {
+    const id = sessionStorage.getItem("loginID");
+    const rsp = await ScoreApi.bestScore(id);
+
+    if (rsp.status == 200) {
       setIsScore(true);
+      setBestScore(rsp.data);
     }
-    console.log("가장높은점수" + maxScore);
+  };
+  //데이터 불러오기기
+  useEffect(() => {
+    getList();
+    getBest();
   }, []);
 
-  //useRef와 useEffect를 사용하여 기록록 길이 만큼 늘어나게 한다.
-  useEffect(() => {
-    console.log(userTestData.length);
-    if (userTestData.length > 7) {
-      listHeight.current.style.height += 100;
-    }
-  }, []);
   return (
-    <MyRankComp ref={listHeight}>
+    <MyRankComp>
       <div className="rank_inner">
         <div className="score_list">
           <h2>Test List</h2>
@@ -50,22 +57,21 @@ export default function MyRank() {
               <th>점수</th>
               <th>날짜</th>
             </tr>
-            {userTestData.map((item) => (
-              <ScoreItem scoreItem={item} />
+            {userTestData.map((scoreItem, index) => (
+              <ScoreItem scoreItem={scoreItem} number={index} />
             ))}
           </table>
         </div>
         <div className="user_score">
           <img src={king} alt="" />
           <div className="userData">
+            <h2>{bestScore.member?.name}님의 최고 점수</h2>
             {isScore ? (
               <>
-                <h2>{loginUser.nickname}님의 최고 점수</h2>
-                <p id="max_score">{maxScore}</p>
+                <p id="max_score">{bestScore.resultNum}P</p>
               </>
             ) : (
               <>
-                <p>{loginUser.nickname}님의 최고 점수</p>
                 <p>************기록 없음************</p>
                 <span onClick={() => navigate("/mainQuiz")}>
                   문제 도전하러 가기

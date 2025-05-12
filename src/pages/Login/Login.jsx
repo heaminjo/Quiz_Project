@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { cache, useContext, useEffect, useState } from "react";
 import LoginComp from "./LoginStyle";
 import { Link, useNavigate } from "react-router-dom";
 import { QuizContext } from "../../App";
 import "./LoginStyle.css";
+import MemberApi from "../../api/MemberApi";
 export default function Login() {
   //컨텍스트
   const { members, setLoginUser, setIsLogin } = useContext(QuizContext);
@@ -34,21 +35,21 @@ export default function Login() {
   }, [emailValid, pwValid]);
 
   //로그인 버튼 클릭
-  const onClickConfirmButton = () => {
+  const onClickConfirmButton = async () => {
     //로그인 버튼 클릭 시 정보와 일치하는 회원을 찾아 user에 저장
-    const user = members.find(
-      (member) => member.email === email && member.password === pw
-    );
 
-    if (user) {
+    const rsp = await MemberApi.login(email, pw);
+    console.log("fhrmdls");
+    const { success, data, message } = rsp.data;
+    if (success) {
       alert(`로그인 성공!!\n이메일: ${email}`);
       setIsLogin(true);
-      setLoginUser(user);
+      setLoginUser(rsp.data.data.name);
+      sessionStorage.setItem("loginID", data.id);
       navigate("/");
     } else {
       alert("등록되지 않은 회원이거나 잘못 입력하셨습니다.");
     }
-    localStorage.setItem("loginUser", JSON.stringify(user));
   };
   return (
     <div className="l_page">

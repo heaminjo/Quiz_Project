@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { QuizContext } from "../../App";
+import MemberApi from "../../api/MemberApi";
 
 export default function Register() {
   //컨택스트
@@ -10,6 +11,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [nickname, setNickname] = useState(""); //  닉네임 상태 추가
+  const [birth, setBirth] = useState("");
+
   const [emailValid, setEmailValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [nicknameValid, setNicknameValid] = useState(false); //  닉네임 유효성 추가
@@ -30,26 +33,6 @@ export default function Register() {
     setPwValid(passwordRegex.test(e.target.value));
   };
 
-  // 회원 가입 버튼 클릭
-  //   const onClickRegisterButton = () => {
-  //     //이메일과 비밀번호 유효성이 맞다면
-  //     if (emailValid && pwValid) {
-  //       const newUser = { email: email, password: pw };
-  //       joinMember(newUser);
-
-  //       alert(`회원가입 성공!!\n이메일: ${email}`);
-  //       navigate("/login");
-  //     } else {
-  //       alert("이메일 또는 비밀번호를 올바르게 입력해주세요.");
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     setNotAllow(!(emailValid && pwValid));
-  //   }, [emailValid, pwValid]);
-
-  //  버튼 활성화 상태 업데이트
-
   //  닉네임 입력 핸들러
   const handleNickname = (e) => {
     setNickname(e.target.value);
@@ -57,14 +40,16 @@ export default function Register() {
   };
 
   //  회원가입 버튼 클릭
-  const onClickRegisterButton = () => {
-    if (emailValid && pwValid && nicknameValid) {
-      const newUser = { email, password: pw, nickname };
-      joinMember(newUser);
-      alert(`회원가입 성공!!\n이메일: ${email}\n닉네임: ${nickname}`);
+  const onClickRegisterButton = async () => {
+    const rsp = await MemberApi.join(email, pw, nickname, birth);
+    const { success, message } = rsp.data;
+
+    if (success) {
+      alert("회원가입 성공!");
       navigate("/login");
     } else {
-      alert("입력 정보를 올바르게 입력해주세요.");
+      alert("회원가입 실패");
+      navigate("/");
     }
   };
 
@@ -125,6 +110,14 @@ export default function Register() {
             placeholder="대문자, 숫자, 특수문자 포함 8자 이상"
             value={pw}
             onChange={handlePw}
+          />
+        </div>
+        <div className="inputWrap" style={{ display: "block" }}>
+          <input
+            type="date"
+            className="inputs"
+            value={birth}
+            onChange={(e) => setBirth(e.target.value)}
           />
         </div>
         <div className="errorMessageWraps">

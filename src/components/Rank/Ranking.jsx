@@ -1,29 +1,20 @@
 import { useContext, useEffect, useState } from "react";
 import "./RankingStyle.css";
-import { QuizContext } from "../../App";
+import MemberApi from "../../api/MemberApi";
+import { useNavigate } from "react-router-dom";
 //leaderboard 대신 유저의 순위표 가져오기기
-export default function Ranking({ isLoading }) {
-  const { ranking, testData } = useContext(QuizContext);
-  const [isRank, setIsRank] = useState(false);
-  // useEffect(() => {
-  //   if (testData != undefined) {
-  //     setIsRank(true);
-  //   } else {
-  //     setIsRank(false);
-  //   }
-  // }, []);
-  useEffect(() => {
-    console.log(ranking);
-  }, []);
+export default function Ranking({ ranking }) {
+  const navigate = useNavigate();
+
   return (
     <div className="leaderboard">
       <h2 className="leaderboard-title">점수판</h2>
       <ul className="leaderboard-list">
-        {testData.length != 0 ? (
+        {ranking.length != 0 ? (
           ranking.map((user, index) => (
             <li key={index} className="leaderboard-item">
               <span className="rank-number">{index + 1}.</span>
-              <span className="rank-name">{user.memberName}</span>
+              <span className="rank-name">{user.name}</span>
               <span className="rank-score">{user.resultNum} pts</span>
             </li>
           ))
